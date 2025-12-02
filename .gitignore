@@ -1,0 +1,27 @@
+# Node / JS
+node_modules/
+dist/
+build/
+coverage/
+
+# Frameworks
+.next/
+out/
+.turbo/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
