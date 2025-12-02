@@ -1,0 +1,21 @@
+# .github/dependabot.yml
+version: 2
+updates:
+  # Keep npm / pnpm / yarn dependencies up to date
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"       # daily | weekly | monthly
+    open-pull-requests-limit: 5
+    # Optionally group updates to avoid PR spam
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # (Optional) Keep GitHub Actions up to date too
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
