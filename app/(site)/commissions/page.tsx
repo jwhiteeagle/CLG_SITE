@@ -16,7 +16,7 @@ export default function CommissionsPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-2">
               <h2 className="text-xl font-semibold text-primary">
-                Commissions - Open
+                Commissions - Open testestsetaset
               </h2>
               <p className="text-muted-foreground max-w-2xl">
                 With over a decade running a one-man studio, I've personally painted thousands of miniatures made from all kinds of materials.

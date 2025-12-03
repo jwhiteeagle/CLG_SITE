@@ -32,7 +32,7 @@ export default function Home() {
             Ready to start a project?
           </h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            Get in touch to discuss your commission.
+            Get in touch to discuss your commission.tsetasdtasdfasdfasdf
           </p>
           <Button asChild>
             <Link href="/commissions">View Commission Info</Link>
