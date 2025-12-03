@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chief Live Gaming
+
+Commission miniature painting business website for [chieflivegaming.com](https://www.chieflivegaming.com).
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Components | shadcn/ui (new-york style) |
+| Package Manager | npm |
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm run start
+
+# Lint
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Directory Structure
 
-## Learn More
+```
+clg_site/
+├── app/
+│   ├── (site)/                   # Route group (no URL segment)
+│   │   ├── layout.tsx            # SiteShell: header + footer
+│   │   ├── page.tsx              # Home (/)
+│   │   ├── gallery/page.tsx      # /gallery
+│   │   ├── about/page.tsx        # /about
+│   │   └── commissions/page.tsx  # /commissions
+│   ├── layout.tsx                # Root: html, body, fonts, providers
+│   └── styles/globals.css        # Tailwind v4 + theme tokens
+├── components/
+│   ├── ui/                       # shadcn primitives
+│   ├── site-header.tsx           # Navbar
+│   └── site-footer.tsx           # Footer
+├── lib/
+│   └── utils.ts                  # cn() helper
+├── public/                       # Static assets
+├── PROJECT_CONTEXT.md            # Project context + workflow log
+└── package.json
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## App Router Patterns
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Root layout (`app/layout.tsx`):** Wraps entire app — `<html>`, `<body>`, fonts, global CSS.
+- **Route group `(site)`:** Groups public pages under shared layout without adding `/site/` to URLs.
+- **Site layout (`app/(site)/layout.tsx`):** Wraps pages with `<SiteHeader />` and `<SiteFooter />`.
+- **Page files:** Each `page.tsx` renders content only; layout handles chrome.
+- **Layouts persist:** Don't remount on navigation — good for nav state, scroll position.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Custom Utility Classes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Defined in `app/styles/globals.css`:
+
+| Class | Purpose |
+|-------|---------|
+| `.site-section` | Responsive container (`max-w-5xl`, responsive padding) |
+| `.page-header` | Title + subtitle stack with spacing |
+| `.site-card` | Bordered card with hover shadow |
+| `.link-pill` | Inline pill for quick links |
+
+All classes use shadcn theme tokens for light/dark compatibility.
+
+---
+
+## Tailwind v4 Notes
+
+This project uses Tailwind CSS v4 with the new CSS-first configuration:
+
+- **No `tailwind.config.*` file** — config lives in CSS
+- **Entry syntax:** `@import "tailwindcss"` (not `@tailwind base/components/utilities`)
+- **PostCSS plugin:** `@tailwindcss/postcss` (not legacy `tailwindcss` plugin)
+- **Color format:** oklch for theme tokens
+
+---
+
+## License
+
+Private project. All rights reserved.
