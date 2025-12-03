@@ -6,13 +6,13 @@ Commission miniature painting business website for [chieflivegaming.com](https:/
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 |
-| Components | shadcn/ui (new-york style) |
-| Package Manager | npm |
+| Layer           | Technology                 |
+| --------------- | -------------------------- |
+| Framework       | Next.js 16 (App Router)    |
+| Language        | TypeScript                 |
+| Styling         | Tailwind CSS v4            |
+| Components      | shadcn/ui (new-york style) |
+| Package Manager | npm                        |
 
 ---
 
@@ -79,12 +79,12 @@ clg_site/
 
 Defined in `app/styles/globals.css`:
 
-| Class | Purpose |
-|-------|---------|
+| Class           | Purpose                                                |
+| --------------- | ------------------------------------------------------ |
 | `.site-section` | Responsive container (`max-w-5xl`, responsive padding) |
-| `.page-header` | Title + subtitle stack with spacing |
-| `.site-card` | Bordered card with hover shadow |
-| `.link-pill` | Inline pill for quick links |
+| `.page-header`  | Title + subtitle stack with spacing                    |
+| `.site-card`    | Bordered card with hover shadow                        |
+| `.link-pill`    | Inline pill for quick links                            |
 
 All classes use shadcn theme tokens for light/dark compatibility.
 

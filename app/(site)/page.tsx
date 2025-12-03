@@ -13,16 +13,24 @@ export default function Home() {
       {/* Quick links */}
       <section className="mb-12">
         <div className="flex flex-wrap gap-2">
-          <Link href="/gallery" className="link-pill">Gallery</Link>
-          <Link href="/commissions" className="link-pill">Commissions</Link>
-          <Link href="/about" className="link-pill">About</Link>
+          <Link href="/gallery" className="link-pill">
+            Gallery
+          </Link>
+          <Link href="/commissions" className="link-pill">
+            Commissions
+          </Link>
+          <Link href="/about" className="link-pill">
+            About
+          </Link>
         </div>
       </section>
 
       {/* CTA */}
       <section className="mb-12">
         <div className="site-card max-w-md">
-          <h2 className="mb-2 text-xl font-semibold">Ready to start a project?</h2>
+          <h2 className="mb-2 text-xl font-semibold">
+            Ready to start a project?
+          </h2>
           <p className="mb-4 text-sm text-muted-foreground">
             Get in touch to discuss your commission.
           </p>

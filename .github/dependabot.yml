@@ -5,7 +5,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"       # daily | weekly | monthly
+      interval: "weekly" # daily | weekly | monthly
     open-pull-requests-limit: 5
     # Optionally group updates to avoid PR spam
     groups:

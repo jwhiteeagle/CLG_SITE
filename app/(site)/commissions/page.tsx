@@ -7,37 +7,66 @@ export default function CommissionsPage() {
   return (
     <div className="site-section">
       <div className="page-header">
-        <h1>Commissions</h1>
-        <p>How the process works and how to get started</p>
+        <h1>Commission Painting Services</h1>
       </div>
 
-      {/* Process overview */}
+      {/* CTA card */}
       <section className="mb-12">
-        <h2 className="mb-4 text-xl font-semibold">The Process</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div className="site-card">
-            <h3 className="mb-2 font-semibold">1. Inquiry</h3>
-            <p className="text-sm text-muted-foreground">
-              Reach out with details about your project and models.
-            </p>
-          </div>
-          <div className="site-card">
-            <h3 className="mb-2 font-semibold">2. Quote</h3>
-            <p className="text-sm text-muted-foreground">
-              Receive a detailed quote based on complexity and timeline.
-            </p>
-          </div>
-          <div className="site-card">
-            <h3 className="mb-2 font-semibold">3. Painting</h3>
-            <p className="text-sm text-muted-foreground">
-              Work begins with progress updates along the way.
-            </p>
+        <div className="site-card bg-primary/5 border-primary/20">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-2">
+              <h2 className="text-xl font-semibold text-primary">
+                Commissions - Open
+              </h2>
+              <p className="text-muted-foreground max-w-2xl">
+                With over a decade running a one-man studio, I've personally painted thousands of miniatures made from all kinds of materials.
+                From big armies to single toy repaints, I treat each project with care.
+                I love working closely with my clients on custom projects to bring their visions to life!
+              </p>
+            </div>
+            <Button size="lg" className="shrink-0" asChild>
+              <a href="#contact">Tell me about your project!</a>
+            </Button>
           </div>
         </div>
       </section>
 
+      {/* Process overview */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-xl font-semibold">My Workflow Highlights</h2>
+        <div className="grid gap-2 sm:grid-cols-3">
+
+          <div className="site-card">
+            <h3 className="mb-2 font-semibold">Flexible Options</h3>
+            <p className="text-sm text-muted-foreground">
+              I love working WITH my clients. I check in often during the painting process for INPUT, not just for updates.
+              I build these decision points into my process to ensure you're thrilled with the final result.
+            </p>            
+          </div>
+
+          <div className="site-card">
+            <h3 className="mb-2 font-semibold">Structured Quote</h3>
+            <p className="text-sm text-muted-foreground">
+              I provide a clear quote for your commission before we begin.
+              We establish a price ceiling and identify a few potential areas of flexibility in the project.
+              Full transparency. No surprises! 
+            </p>
+          </div>
+
+          <div className="site-card">
+            <h3 className="mb-2 font-semibold">Open Communication</h3>
+            <p className="text-sm text-muted-foreground">
+              Things come up, ideas change, and projects evolve. 
+              I maintain open lines of communication throughout my entire process.
+              We might even discover new ideas together as we go!
+            </p>            
+          </div>
+
+        </div>
+      </section>
+
       {/* Contact form */}
-      <section className="max-w-md">
+      <section id="contact" className="max-w-md scroll-mt-8">
         <h2 className="mb-4 text-xl font-semibold">Get in Touch</h2>
         <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
