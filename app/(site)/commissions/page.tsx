@@ -12,7 +12,7 @@ export default function CommissionsPage() {
 
       {/* CTA card */}
       <section className="mb-12">
-        <div className="site-card bg-primary/15">
+        <div className="site-card bg-primary/8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-2">
               <h2 className="text-xl font-semibold text-primary">
