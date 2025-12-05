@@ -6,17 +6,20 @@ import { Textarea } from "@/components/ui/textarea";
 export default function CommissionsPage() {
   return (
     <div className="site-section">
-      <div className="page-header">
-        <h1>Commission Painting Services</h1>
+      <div className="page-header" >
+        <h1 className="mb-2 font-semibold text-primary">Commission Painting Services</h1>
       </div>
 
       {/* CTA card */}
       <section className="mb-12">
-        <div className="site-card bg-primary/8">
+        <div className="site-card bg-warm-accent/7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-2">
-              <h2 className="text-xl font-semibold text-primary">
+              <h2 className="text-xl font-semibold">
                 Commissions - Open
+              </h2>
+              <h2 className="text-l font-semibold">
+                Recommended Lead Time: 4-6 weeks
               </h2>
               <p className="text-muted-foreground max-w-2xl">
                 With over a decade running a one-man studio, I've personally painted thousands of miniatures made from all kinds of materials.
@@ -33,10 +36,10 @@ export default function CommissionsPage() {
 
       {/* Process overview */}
       <section className="mb-12">
-        <h2 className="mb-4 text-xl font-semibold">My Workflow Highlights</h2>
+        <h2 className="mb-4 text-xl font-semibold text-primary">My Workflow Highlights</h2>
         <div className="grid gap-2 sm:grid-cols-3">
 
-          <div className="site-card">
+          <div className="site-card bg-warm-accent/7">
             <h3 className="mb-2 font-semibold">Flexible Options</h3>
             <p className="text-sm text-muted-foreground">
               I love working WITH my clients. I check in often during the painting process for INPUT, not just for updates.
@@ -44,7 +47,7 @@ export default function CommissionsPage() {
             </p>            
           </div>
 
-          <div className="site-card">
+          <div className="site-card bg-warm-accent/7">
             <h3 className="mb-2 font-semibold">Structured Quote</h3>
             <p className="text-sm text-muted-foreground">
               I provide a clear quote for your commission before we begin.
@@ -53,7 +56,7 @@ export default function CommissionsPage() {
             </p>
           </div>
 
-          <div className="site-card">
+          <div className="site-card bg-warm-accent/7">
             <h3 className="mb-2 font-semibold">Open Communication</h3>
             <p className="text-sm text-muted-foreground">
               Things come up, ideas change, and projects evolve. 
@@ -67,7 +70,7 @@ export default function CommissionsPage() {
 
       {/* Contact form */}
       <section id="contact" className="max-w-md scroll-mt-8">
-        <h2 className="mb-4 text-xl font-semibold">Get in Touch</h2>
+        <h2 className="mb-4 text-xl font-semibold text-primary">Get in Touch</h2>
         <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="name">Name</Label>

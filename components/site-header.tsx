@@ -15,12 +15,12 @@ export function SiteHeader() {
         <Link href="/" className="text-lg font-semibold tracking-tight">
           Chief Live Gaming
         </Link>
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-2">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="rounded-md bg-warm-accent/12 px-3 py-1.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-warm-accent/20 hover:text-foreground"
             >
               {link.label}
             </Link>
