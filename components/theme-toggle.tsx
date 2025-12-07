@@ -26,7 +26,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="rounded-full bg-muted shadow-[inset_0_2px_0_0_rgba(255,255,255,0.15),inset_0_-2px_0_0_rgba(0,0,0,0.2)] hover:bg-accent active:shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.25)]"
+      className="rounded-md bg-card shadow-[inset_0_2px_0_0_rgba(255,255,255,0.1),inset_0_-2px_0_0_rgba(0,0,0,0.1)] transition-shadow hover:shadow-[inset_0_2px_0_0_rgba(255,255,255,0.1),inset_0_-2px_0_0_rgba(0,0,0,0.1),0_4px_12px_-2px_rgba(0,0,0,0.15)]"
     >
       {resolvedTheme === "dark" ? (
         <Sun className="h-5 w-5 text-yellow-400" />

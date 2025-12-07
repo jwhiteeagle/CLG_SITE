@@ -9,9 +9,10 @@ export default function AboutPage() {
       <div className="prose prose-slate max-w-none">
         <p className="text-muted-foreground">
           Jake has been painting miniatures professionally for over a decade,
-          running Chief Live Gaming as a home-based commission studiod.ddddddd
-          Specializing in Warhammer 40k, Age of Sigmar, Dungeons &amp; Dragons,
-          Kingdom Death Monster, and many other tabletop systems.
+          running Chief Live Gaming as a home-based commission studio.
+          He specializes in painting models for Warhammer 40k, Age of Sigmar, Dungeons & Dragons, and
+          Kingdom Death Monster. Jake loves painting armies and large projects, but also enjoys
+          working on one-off models and studio pieces. To get in touch about a project, check out the Commissions page!
         </p>
         {/* Add more content as needed */}
       </div>
