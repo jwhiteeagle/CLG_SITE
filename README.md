@@ -12,6 +12,7 @@ Commission miniature painting business website for [chieflivegaming.com](https:/
 | Language        | TypeScript                 |
 | Styling         | Tailwind CSS v4            |
 | Components      | shadcn/ui (new-york style) |
+| Carousel        | embla-carousel-react       |
 | Package Manager | npm                        |
 
 ---
@@ -46,20 +47,30 @@ clg_site/
 ├── app/
 │   ├── (site)/                   # Route group (no URL segment)
 │   │   ├── layout.tsx            # SiteShell: header + footer
-│   │   ├── page.tsx              # Home (/)
+│   │   ├── page.tsx              # Home (/) with featured carousel
 │   │   ├── gallery/page.tsx      # /gallery
 │   │   ├── about/page.tsx        # /about
 │   │   └── commissions/page.tsx  # /commissions
-│   ├── layout.tsx                # Root: html, body, fonts, providers
-│   └── styles/globals.css        # Tailwind v4 + theme tokens
+│   ├── layout.tsx                # Root: html, body, fonts (Orbitron), providers
+│   └── styles/globals.css        # Tailwind v4 + theme tokens + iOS-inspired styling
 ├── components/
-│   ├── ui/                       # shadcn primitives
-│   ├── site-header.tsx           # Navbar
-│   └── site-footer.tsx           # Footer
+│   ├── ui/                       # shadcn primitives (Button, Card, Carousel, etc.)
+│   ├── site-header.tsx           # Navbar with logo + Orbitron branding
+│   ├── site-footer.tsx           # Footer
+│   ├── theme-toggle.tsx          # Dark/light mode toggle
+│   ├── theme-provider.tsx        # next-themes wrapper
+│   └── featured-carousel.tsx     # Auto-playing image carousel (4s delay)
 ├── lib/
 │   └── utils.ts                  # cn() helper
-├── public/                       # Static assets
-├── PROJECT_CONTEXT.md            # Project context + workflow log
+├── public/
+│   └── images/
+│       ├── brand/                # Logo files
+│       ├── featured/             # 37 featured work images for carousel
+│       └── gallery/              # Gallery images
+├── brand_kit_clg/                # Palette docs, logo variations
+├── PROJECT_CONTEXT.md            # Project context
+├── CLG_SITE_LOGS.md             # Workflow logs
+├── CLG_SITE_TODO.md             # Task checklist
 └── package.json
 ```
 
@@ -67,7 +78,7 @@ clg_site/
 
 ## App Router Patterns
 
-- **Root layout (`app/layout.tsx`):** Wraps entire app — `<html>`, `<body>`, fonts, global CSS.
+- **Root layout (`app/layout.tsx`):** Wraps entire app — `<html>`, `<body>`, Orbitron font, global CSS, ThemeProvider.
 - **Route group `(site)`:** Groups public pages under shared layout without adding `/site/` to URLs.
 - **Site layout (`app/(site)/layout.tsx`):** Wraps pages with `<SiteHeader />` and `<SiteFooter />`.
 - **Page files:** Each `page.tsx` renders content only; layout handles chrome.
@@ -79,14 +90,47 @@ clg_site/
 
 Defined in `app/styles/globals.css`:
 
-| Class           | Purpose                                                |
-| --------------- | ------------------------------------------------------ |
-| `.site-section` | Responsive container (`max-w-5xl`, responsive padding) |
-| `.page-header`  | Title + subtitle stack with spacing                    |
-| `.site-card`    | Bordered card with hover shadow                        |
-| `.link-pill`    | Inline pill for quick links                            |
+| Class           | Purpose                                                          |
+| --------------- | ---------------------------------------------------------------- |
+| `.site-section` | Responsive container (`max-w-5xl`, responsive padding)           |
+| `.page-header`  | Title + subtitle stack with spacing                              |
+| `.site-card`    | iOS-inspired card with gradient overlay, outer shadow, border    |
+| `.link-pill`    | Inline pill for quick links                                      |
 
 All classes use shadcn theme tokens for light/dark compatibility.
+
+---
+
+## Design System
+
+### iOS-Inspired Styling
+- **Gradient overlays:** Subtle diagonal gradient (primary color at 8% opacity)
+- **Outer shadows:** Two-layer soft shadows for floating effect
+- **Crisp borders:** Thin white borders at 10% (light) / 5% (dark) opacity
+- **Rounded corners:** `rounded-lg` and `rounded-md` for modern feel
+- **Hover animations:** Lift elements with enhanced shadows
+
+### Color System
+- **Dark Mode:** "Midnight Atmosphere" — deep blue-violet (`oklch(15% 0.031 272)`)
+- **Light Mode:** "Pastel Twilight" — soft lavender-gray (`oklch(88% 0.025 270)`)
+- **Primary:** Steel blue with gradient logo (orange-red → steel blue at 135°)
+- **Warm Accent:** Magenta used at low opacity for depth
+
+### Typography
+- **Headers:** Orbitron (extrabold, 2xl) for "Chief Live Gaming"
+- **Subheaders:** Orbitron (bold, base) for "Miniature Painting Services"
+- **Body:** Geist Sans
+
+---
+
+## Featured Carousel
+
+The home page features an auto-playing carousel:
+- **37 images** from `/public/images/featured/`
+- **4 second** auto-play delay
+- **Pauses on hover** and user interaction
+- **Aspect ratio:** 16:9 (aspect-video)
+- **Navigation:** Previous/Next arrows + swipe/drag support
 
 ---
 

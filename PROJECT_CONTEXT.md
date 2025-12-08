@@ -15,18 +15,20 @@
 ## Current Status
 
 **Theme system:** Complete — Bilibili-style color system with dark/light modes  
-**Logo & branding:** Complete — Gradient logo implemented with Orbitron header font  
-**Header styling:** Complete — Unified card-style design across all header elements  
-**Page structure:** Complete — Home, Gallery, About, Commissions pages scaffolded  
+**Logo & branding:** Complete — Gradient logo implemented with Orbitron header font + tagline  
+**Header styling:** Complete — Unified iOS-inspired card design across all header elements  
+**Featured carousel:** Complete — Auto-playing showcase with 37 featured work images  
+**Design system:** Complete — iOS-inspired styling with gradient overlays, outer shadows, crisp borders  
+**Page structure:** Complete — Home with carousel, Gallery/About/Commissions pages scaffolded  
 **Brand kit:** Complete — Palette docs, visual previews, color theory reference, logo variations  
-**Next focus:** Add real content (gallery images, contact form wiring)
+**Next focus:** Add real content (gallery grid, about page, commissions details, contact form)
 
 ---
 
 ## V1 Scope
 
 **In scope:**
-- Home: hero, quick links, CTA card
+- Home: featured carousel, quick links, CTA card ✅
 - Gallery: responsive image grid
 - About: short bio
 - Commissions: process overview, contact form
@@ -40,12 +42,14 @@
 
 ## Design & Architecture Constraints
 
-- **shadcn/ui for primitives:** Button, Input, Textarea, Label, Card, Dialog, Sheet, Accordion, Form
+- **shadcn/ui for primitives:** Button, Input, Textarea, Label, Card, Carousel, Dialog, Sheet, Accordion, Form
+- **Carousel:** embla-carousel-react with autoplay plugin (3s delay)
 - **Global providers** at root layout level (theme, toasts, etc.)
 - **Prefer Server Components** unless interactivity required
 - **Custom utility classes** in `globals.css`: `.site-section`, `.site-card`, `.page-header`, `.link-pill`
 - **Theme tokens:** oklch color format, Bilibili-style chromatic grays
-- **Typography:** Orbitron (extrabold) for header branding, Geist Sans for body text
+- **Typography:** Orbitron (extrabold, 2xl) for header branding + (bold, base) for tagline; Geist Sans for body text
+- **iOS-inspired design:** Gradient overlays (8% opacity), outer shadows, crisp borders, subtle rounded corners
 
 ---
 
@@ -66,20 +70,52 @@
 - Dark mode: `oklch(62% 0.18 30)` → `oklch(75% 0.114 232)` (orange-red → steel blue)
 - Light mode: `oklch(50% 0.20 30)` → `oklch(45% 0.12 232)` (darker, more saturated)
 
+### iOS-Inspired Design Elements
+- **Gradient overlay:** Primary color at 8% opacity via `::before` pseudo-element
+- **Outer shadows:** Two-layer soft shadows (8px + 4px blur) for floating effect
+- **Crisp borders:** 1px solid white at 10% (light) / 5% (dark) opacity
+- **Corner radius:** `rounded-lg` (10px) for cards, `rounded-md` (6px) for buttons
+- **Hover lift:** Elements translate up 0.5px with enhanced shadow
+
 ### Design Principles
 - Chromatic grays (violet-tinted, not neutral)
 - Value compression (atmospheric feel)
 - One primary pop + warm accent whisper
 - Soft text contrast (92% light / 20% dark, not pure white/black)
+- iOS-inspired depth through gradients and shadows
+
+---
+
+## Featured Carousel
+
+Home page features an auto-playing carousel showcasing Jake's work:
+- **37 images** from `/public/images/featured/`
+- **Auto-play:** 3 second delay
+- **Interaction:** Pauses on hover and user interaction
+- **Aspect ratio:** 16:9 (aspect-video)
+- **Navigation:** Previous/Next arrows positioned at left-4/right-4
+- **Styling:** iOS-inspired gradient overlay + border
+- **Layout:** Full-width, flush with header (pt-0 on home page)
 
 ---
 
 ## Key Decisions Log
 
+### [12-07-25] iOS-inspired design system + featured carousel
+- Analyzed iOS 18 design language from iPhone screenshot
+- Implemented gradient overlays (primary at 8% opacity) across all cards/buttons
+- Added two-layer outer shadows for floating effect
+- Added crisp white borders at low opacity (10% light / 5% dark)
+- Corner radius kept at `rounded-lg` and `rounded-md` (not iOS's larger radius)
+- Installed shadcn carousel + embla-carousel-autoplay
+- Created FeaturedCarousel component with 37 images, 3s autoplay
+- Added "Miniature Painting Services" tagline to header with matching width
+- Theme toggle sized to match nav buttons (34x34px square)
+
 ### [12-06-25] Logo refresh + header unification
 - Selected diagonal gradient logo (Option 5: orange-red → steel blue at 135°)
 - Logo implemented at 72x72px card with 70x70px image (tightly cropped)
-- Unified all header elements with `.site-card` styling (logo, nav buttons, theme toggle)
+- Unified all header elements with card styling (logo, nav buttons, theme toggle)
 - Added Orbitron font (extrabold, 2xl) for "Chief Live Gaming" header text
 - Increased header height from 64px to 80px to accommodate larger logo
 - Logo and text separated into independent clickable elements for cleaner styling
@@ -92,8 +128,8 @@
 
 ### [12-03-25] Dark mode toggle added
 - next-themes for theme switching
-- ThemeToggle component with inset button styling
-- Inset shadow styling for cards (borderless)
+- ThemeToggle component with card styling
+- Card styling evolved from inset-only to iOS-inspired outer shadows
 
 ### [12-02-25] Directory structure
 - `(site)` route group for public pages with shared SiteShell layout
@@ -108,23 +144,24 @@
 clg_site/
 ├── app/
 │   ├── (site)/           # Public pages route group
-│   │   ├── page.tsx      # Home
+│   │   ├── page.tsx      # Home (carousel, quick links, CTA)
 │   │   ├── gallery/
 │   │   ├── about/
 │   │   ├── commissions/
 │   │   └── layout.tsx    # SiteShell (header/footer)
 │   ├── layout.tsx        # Root layout (ThemeProvider, Orbitron font)
-│   └── styles/globals.css
+│   └── styles/globals.css # Tailwind v4 + iOS-inspired styling
 ├── components/
-│   ├── ui/               # shadcn primitives
-│   ├── site-header.tsx   # Logo + Orbitron text + nav + theme toggle
+│   ├── ui/               # shadcn primitives (Button, Card, Carousel, etc.)
+│   ├── site-header.tsx   # Logo + Orbitron text/tagline + nav + theme toggle
 │   ├── site-footer.tsx
 │   ├── theme-provider.tsx
-│   └── theme-toggle.tsx
+│   ├── theme-toggle.tsx  # 34x34 square button with iOS styling
+│   └── featured-carousel.tsx # Auto-playing carousel (3s, 37 images)
 ├── public/images/
 │   ├── brand/
 │   │   └── clg-logo-2025-crop500.png  # Gradient logo (cropped)
-│   ├── featured/
+│   ├── featured/         # 37 carousel images
 │   └── gallery/
 └── brand_kit_clg/        # Palette docs + visual previews + logo files
     ├── 500x500 logo2025.png

@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { FeaturedCarousel } from "@/components/featured-carousel";
 
 export default function Home() {
   return (
-    <div className="site-section">
-      {/* Hero */}
-      <div className="page-header">
-        <h1>Chief Live Gaming</h1>
-        <p>Commission miniature painting &amp; hobby services</p>
-      </div>
+    <div className="site-section pt-0">
+      {/* Featured Work Carousel */}
+      <section className="mb-12">
+        <FeaturedCarousel />
+      </section>
 
       {/* Quick links */}
       <section className="mb-12">
@@ -32,7 +32,7 @@ export default function Home() {
             Ready to start a project?
           </h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            Get in touch to discuss your commission.tsetasdtasdfasdfasdf
+            Get in touch to discuss your commission.
           </p>
           <Button asChild>
             <Link href="/commissions">View Commission Info</Link>

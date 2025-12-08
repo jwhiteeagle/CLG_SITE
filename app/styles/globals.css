@@ -44,6 +44,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
 }
 
 :root {
@@ -172,8 +173,38 @@
     @apply text-muted-foreground;
   }
 
+  /* iOS-inspired card with gradient overlay, outer shadow, crisp border */
   .site-card {
-    @apply rounded-lg bg-card p-6 transition-shadow shadow-[inset_0_2px_0_0_rgba(255,255,255,0.1),inset_0_-2px_0_0_rgba(0,0,0,0.1)] hover:shadow-[inset_0_2px_0_0_rgba(255,255,255,0.1),inset_0_-2px_0_0_rgba(0,0,0,0.1),0_4px_12px_-2px_rgba(0,0,0,0.15)];
+    position: relative;
+    @apply rounded-lg p-6 transition-all duration-200;
+    background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 8px 16px -4px rgba(0, 0, 0, 0.1),
+      0 4px 8px -2px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .site-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary) 0%, transparent 50%);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  
+  .dark .site-card {
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .site-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 24px -6px rgba(0, 0, 0, 0.15),
+      0 6px 12px -3px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
 
   .link-pill {
