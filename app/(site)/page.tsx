@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { FeaturedCarousel } from "@/components/featured-carousel";
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { FeaturedCarousel } from '@/components/featured-carousel';
 
 export default function Home() {
   return (
@@ -31,7 +31,7 @@ export default function Home() {
           <h2 className="mb-2 text-xl font-semibold">
             Ready to start a project?
           </h2>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mb-4 text-sm">
             Get in touch to discuss your commission.
           </p>
           <Button asChild>

@@ -11,7 +11,7 @@ export default function GalleryPage() {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="aspect-square rounded-lg bg-muted flex items-center justify-center text-muted-foreground"
+            className="bg-muted text-muted-foreground flex aspect-square items-center justify-center rounded-lg"
           >
             Image {i + 1}
           </div>

@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Orbitron } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import "./styles/globals.css";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono, Orbitron } from 'next/font/google';
+import { ThemeProvider } from '@/components/theme-provider';
+import './styles/globals.css';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 const orbitron = Orbitron({
-  variable: "--font-orbitron",
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
+  variable: '--font-orbitron',
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
 });
 
 export const metadata: Metadata = {
-  title: "Chief Live Gaming",
-  description: "Commission miniature painting & hobby services",
+  title: 'Chief Live Gaming',
+  description: 'Commission miniature painting & hobby services',
 };
 
 export default function RootLayout({

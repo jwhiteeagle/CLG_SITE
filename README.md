@@ -90,12 +90,12 @@ clg_site/
 
 Defined in `app/styles/globals.css`:
 
-| Class           | Purpose                                                          |
-| --------------- | ---------------------------------------------------------------- |
-| `.site-section` | Responsive container (`max-w-5xl`, responsive padding)           |
-| `.page-header`  | Title + subtitle stack with spacing                              |
-| `.site-card`    | iOS-inspired card with gradient overlay, outer shadow, border    |
-| `.link-pill`    | Inline pill for quick links                                      |
+| Class           | Purpose                                                       |
+| --------------- | ------------------------------------------------------------- |
+| `.site-section` | Responsive container (`max-w-5xl`, responsive padding)        |
+| `.page-header`  | Title + subtitle stack with spacing                           |
+| `.site-card`    | iOS-inspired card with gradient overlay, outer shadow, border |
+| `.link-pill`    | Inline pill for quick links                                   |
 
 All classes use shadcn theme tokens for light/dark compatibility.
 
@@ -104,6 +104,7 @@ All classes use shadcn theme tokens for light/dark compatibility.
 ## Design System
 
 ### iOS-Inspired Styling
+
 - **Gradient overlays:** Subtle diagonal gradient (primary color at 8% opacity)
 - **Outer shadows:** Two-layer soft shadows for floating effect
 - **Crisp borders:** Thin white borders at 10% (light) / 5% (dark) opacity
@@ -111,12 +112,14 @@ All classes use shadcn theme tokens for light/dark compatibility.
 - **Hover animations:** Lift elements with enhanced shadows
 
 ### Color System
+
 - **Dark Mode:** "Midnight Atmosphere" — deep blue-violet (`oklch(15% 0.031 272)`)
 - **Light Mode:** "Pastel Twilight" — soft lavender-gray (`oklch(88% 0.025 270)`)
 - **Primary:** Steel blue with gradient logo (orange-red → steel blue at 135°)
 - **Warm Accent:** Magenta used at low opacity for depth
 
 ### Typography
+
 - **Headers:** Orbitron (extrabold, 2xl) for "Chief Live Gaming"
 - **Subheaders:** Orbitron (bold, base) for "Miniature Painting Services"
 - **Body:** Geist Sans
@@ -126,6 +129,7 @@ All classes use shadcn theme tokens for light/dark compatibility.
 ## Featured Carousel
 
 The home page features an auto-playing carousel:
+
 - **37 images** from `/public/images/featured/`
 - **4 second** auto-play delay
 - **Pauses on hover** and user interaction
