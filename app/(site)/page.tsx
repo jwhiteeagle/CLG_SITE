@@ -1,13 +1,29 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { FeaturedCarousel } from '@/components/featured-carousel';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+function getFeaturedImages(): string[] {
+  const featuredDir = join(process.cwd(), 'public', 'images', 'featured');
+  const entries = readdirSync(featuredDir, { withFileTypes: true });
+  const images = entries
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .filter((name) => /\.(png|jpe?g|webp|avif|gif)$/i.test(name))
+    .sort((a, b) => a.localeCompare(b, 'en'));
+
+  return images;
+}
 
 export default function Home() {
+  const featuredImages = getFeaturedImages();
+
   return (
     <div className="site-section pt-0">
       {/* Featured Work Carousel */}
       <section className="mb-12">
-        <FeaturedCarousel />
+        <FeaturedCarousel images={featuredImages} />
       </section>
 
       {/* Quick links */}

@@ -33,7 +33,7 @@ export function SiteHeader() {
               }}
             />
             <Image
-              src="/images/brand/clg-logo-2025-crop500.png"
+              src="/images/brand/CLG 2026 Brush Logo.png"
               alt="Chief Live Gaming"
               width={70}
               height={70}

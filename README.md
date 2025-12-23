@@ -65,14 +65,20 @@ clg_site/
 ├── public/
 │   └── images/
 │       ├── brand/                # Logo files
-│       ├── featured/             # 37 featured work images for carousel
+│       ├── featured/             # Featured work images for carousel
 │       └── gallery/              # Gallery images
 ├── brand_kit_clg/                # Palette docs, logo variations
 ├── PROJECT_CONTEXT.md            # Project context
-├── CLG_SITE_LOGS.md             # Workflow logs
-├── CLG_SITE_TODO.md             # Task checklist
 └── package.json
 ```
+
+## Documentation Suite (outside repo)
+
+Agent workflow docs live outside the git repo and are managed via `jake_mcp`:
+- Primer: `primer://clg_site/clg_site_primer` (`F:\DEV_REFERENCES\primers\project\clg_site\CLG_SITE_PRIMER.md`)
+- Context: `context://project/clg_site` (`F:\DEV_REFERENCES\primers\project\clg_site\CLG_SITE_CONTEXT.md`)
+- Logs: `primer://clg_site/clg_site_logs` (`F:\DEV_REFERENCES\primers\project\clg_site\CLG_SITE_LOGS.md`)
+- TODO: `primer://clg_site/clg_site_todo` (`F:\DEV_REFERENCES\primers\project\clg_site\CLG_SITE_TODO.md`)
 
 ---
 
@@ -130,7 +136,7 @@ All classes use shadcn theme tokens for light/dark compatibility.
 
 The home page features an auto-playing carousel:
 
-- **37 images** from `/public/images/featured/`
+- **Images** from `/public/images/featured/` (auto-detected at build time)
 - **4 second** auto-play delay
 - **Pauses on hover** and user interaction
 - **Aspect ratio:** 16:9 (aspect-video)

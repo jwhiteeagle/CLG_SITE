@@ -1,6 +1,6 @@
 # Chief Live Gaming – Project Context
 
-> High-level project context, scope, and architecture decisions. For workflow details see `CLG_SITE_LOGS.md`; for tasks see `CLG_SITE_TODO.md`.
+> High-level project context, scope, and architecture decisions. For workflow logs/TODOs see README “Documentation Suite” (managed via `jake_mcp`).
 
 ---
 
@@ -17,7 +17,7 @@
 **Theme system:** Complete — Bilibili-style color system with dark/light modes  
 **Logo & branding:** Complete — Gradient logo implemented with Orbitron header font + tagline  
 **Header styling:** Complete — Unified iOS-inspired card design across all header elements  
-**Featured carousel:** Complete — Auto-playing showcase with 37 featured work images  
+**Featured carousel:** Complete - Auto-playing showcase sourced from `/public/images/featured`  
 **Design system:** Complete — iOS-inspired styling with gradient overlays, outer shadows, crisp borders  
 **Page structure:** Complete — Home with carousel, Gallery/About/Commissions pages scaffolded  
 **Brand kit:** Complete — Palette docs, visual previews, color theory reference, logo variations  
@@ -42,9 +42,9 @@
 
 ## Design & Architecture Constraints
 
-- **shadcn/ui for primitives:** Button, Input, Textarea, Label, Card, Carousel, Dialog, Sheet, Accordion, Form
-- **Carousel:** embla-carousel-react with autoplay plugin (3s delay)
-- **Global providers** at root layout level (theme, toasts, etc.)
+- **shadcn/ui primitives in repo:** Button, Card, Carousel, Input, Label, Textarea
+- **Carousel:** embla-carousel-react with autoplay plugin (4s delay)
+- **Global providers** at root layout level (theme)
 - **Prefer Server Components** unless interactivity required
 - **Custom utility classes** in `globals.css`: `.site-section`, `.site-card`, `.page-header`, `.link-pill`
 - **Theme tokens:** oklch color format, Bilibili-style chromatic grays
@@ -89,8 +89,8 @@
 ## Featured Carousel
 
 Home page features an auto-playing carousel showcasing Jake's work:
-- **37 images** from `/public/images/featured/`
-- **Auto-play:** 3 second delay
+- **Images** from `/public/images/featured/` (auto-detected at build time)
+- **Auto-play:** 4 second delay
 - **Interaction:** Pauses on hover and user interaction
 - **Aspect ratio:** 16:9 (aspect-video)
 - **Navigation:** Previous/Next arrows positioned at left-4/right-4
@@ -108,7 +108,7 @@ Home page features an auto-playing carousel showcasing Jake's work:
 - Added crisp white borders at low opacity (10% light / 5% dark)
 - Corner radius kept at `rounded-lg` and `rounded-md` (not iOS's larger radius)
 - Installed shadcn carousel + embla-carousel-autoplay
-- Created FeaturedCarousel component with 37 images, 3s autoplay
+- Created FeaturedCarousel component with 4s autoplay
 - Added "Miniature Painting Services" tagline to header with matching width
 - Theme toggle sized to match nav buttons (34x34px square)
 
@@ -157,11 +157,11 @@ clg_site/
 │   ├── site-footer.tsx
 │   ├── theme-provider.tsx
 │   ├── theme-toggle.tsx  # 34x34 square button with iOS styling
-│   └── featured-carousel.tsx # Auto-playing carousel (3s, 37 images)
+│   └── featured-carousel.tsx # Auto-playing carousel (4s)
 ├── public/images/
 │   ├── brand/
 │   │   └── clg-logo-2025-crop500.png  # Gradient logo (cropped)
-│   ├── featured/         # 37 carousel images
+│   ├── featured/         # carousel images
 │   └── gallery/
 └── brand_kit_clg/        # Palette docs + visual previews + logo files
     ├── 500x500 logo2025.png

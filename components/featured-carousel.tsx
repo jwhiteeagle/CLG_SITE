@@ -11,50 +11,18 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
-const featuredImages = [
-  'April-12.jpg',
-  'Coven-Army-Jan-2019-3.jpg',
-  'Death Guard Vehicles-2.jpg',
-  'Death-Guard-Sicaran-Class-4-1024x681.jpg',
-  'Deathwatch_Army-9.jpg',
-  'DSC_0004.JPG',
-  'DSC_0012-2.JPG',
-  'DSC_0022.JPG',
-  'DSC_0025.JPG',
-  'Eldar-Ranger-3.jpg',
-  'Guillimans-1024x681.jpg',
-  'Harlequins_Oct_2018-1-1-1024x681.jpg',
-  'House-Griffith-Porphyrion-1.jpg',
-  'IMG_1579.jpg',
-  'Imperial Knights-2.jpg',
-  'Iron-Warriors-3.jpg',
-  'Isengard-Army-1.jpg',
-  'Isengard-Army-13.jpg',
-  'Isengard-Army-23.jpg',
-  'Isengard-Army-24.jpg',
-  'Isengard-Army-5.jpg',
-  'Kabal-of-the-Black-Tongue-4-1024x681.jpg',
-  'Knight-Lancer-1.jpg',
-  'Lord-of-Skulls-9.jpg',
-  'Nurgle Plague Hulk-6.jpg',
-  'Nurgle-Renegade-Knight-2.jpg',
-  'Thunderhawk-Gunship-12.jpg',
-  'Thunderhawk-Gunship-17.jpg',
-  'Thunderhawk-Gunship-2.jpg',
-  'Thunderhawk-Gunship-7.jpg',
-  'Tzeentch-Army-2-2.jpg',
-  'Tzeentch-Army-2-5.jpg',
-  'Tzeentch-Army-2.jpg',
-  'Tzeentch-Daemons-2-10.jpg',
-  'Tzeentch-Daemons-2-19.jpg',
-  'Tzeentch-Daemons-2-8.jpg',
-  'Yvahra-Dynamic-Pose-6.jpg',
-];
+type FeaturedCarouselProps = {
+  images: string[];
+};
 
-export function FeaturedCarousel() {
+export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })
   );
+
+  if (images.length === 0) {
+    return null;
+  }
 
   return (
     <div className="relative w-full">
@@ -65,8 +33,8 @@ export function FeaturedCarousel() {
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
-          {featuredImages.map((image, index) => (
-            <CarouselItem key={index}>
+          {images.map((image, index) => (
+            <CarouselItem key={image}>
               <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/10 dark:border-white/5">
                 {/* Gradient overlay for iOS-style depth */}
                 <div
