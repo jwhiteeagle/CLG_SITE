@@ -11,7 +11,9 @@ function getFeaturedImages(): string[] {
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
     .filter((name) => /\.(png|jpe?g|webp|avif|gif)$/i.test(name))
-    .sort((a, b) => a.localeCompare(b, 'en'));
+    .sort((a, b) =>
+      a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' })
+    );
 
   return images;
 }

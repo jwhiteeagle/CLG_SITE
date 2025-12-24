@@ -48,6 +48,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
                   src={`/images/featured/${image}`}
                   alt={`Featured work ${index + 1}`}
                   fill
+                  sizes="(min-width: 1024px) 1024px, 100vw"
                   className="object-cover"
                   priority={index === 0}
                 />

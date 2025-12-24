@@ -19,7 +19,7 @@
 **Header styling:** Complete — Unified iOS-inspired card design across all header elements  
 **Featured carousel:** Complete - Auto-playing showcase sourced from `/public/images/featured`  
 **Design system:** Complete — iOS-inspired styling with gradient overlays, outer shadows, crisp borders  
-**Page structure:** Complete — Home with carousel, Gallery/About/Commissions pages scaffolded  
+**Page structure:** Complete - Home with carousel, Gallery categories + grids, About/Commissions pages scaffolded  
 **Brand kit:** Complete — Palette docs, visual previews, color theory reference, logo variations  
 **Next focus:** Add real content (gallery grid, about page, commissions details, contact form)
 
@@ -145,7 +145,8 @@ clg_site/
 ├── app/
 │   ├── (site)/           # Public pages route group
 │   │   ├── page.tsx      # Home (carousel, quick links, CTA)
-│   │   ├── gallery/
+│   │   ├── gallery/page.tsx      # Gallery category index
+│   │   ├── gallery/[category]/page.tsx # Category gallery (image grid)
 │   │   ├── about/
 │   │   ├── commissions/
 │   │   └── layout.tsx    # SiteShell (header/footer)
@@ -160,9 +161,10 @@ clg_site/
 │   └── featured-carousel.tsx # Auto-playing carousel (4s)
 ├── public/images/
 │   ├── brand/
-│   │   └── clg-logo-2025-crop500.png  # Gradient logo (cropped)
+│   │   ├── CLG 2026 Brush Logo.png    # Square logo (header + icons)
+│   │   └── CLG 26 Banner Logo.png     # Wide banner logo
 │   ├── featured/         # carousel images
-│   └── gallery/
+│   └── gallery/          # 1 folder per category, images are numbered .webp
 └── brand_kit_clg/        # Palette docs + visual previews + logo files
     ├── 500x500 logo2025.png
     ├── clg-logo-2025-crop500.png

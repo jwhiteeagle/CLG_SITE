@@ -48,7 +48,8 @@ clg_site/
 │   ├── (site)/                   # Route group (no URL segment)
 │   │   ├── layout.tsx            # SiteShell: header + footer
 │   │   ├── page.tsx              # Home (/) with featured carousel
-│   │   ├── gallery/page.tsx      # /gallery
+│   │   ├── gallery/page.tsx      # /gallery (category index)
+│   │   ├── gallery/[category]/page.tsx # /gallery/<category>
 │   │   ├── about/page.tsx        # /about
 │   │   └── commissions/page.tsx  # /commissions
 │   ├── layout.tsx                # Root: html, body, fonts (Orbitron), providers
@@ -61,12 +62,14 @@ clg_site/
 │   ├── theme-provider.tsx        # next-themes wrapper
 │   └── featured-carousel.tsx     # Auto-playing image carousel (4s delay)
 ├── lib/
+│   ├── gallery-config.ts         # Gallery category metadata
+│   ├── gallery.ts                # Gallery disk index helpers
 │   └── utils.ts                  # cn() helper
 ├── public/
 │   └── images/
 │       ├── brand/                # Logo files
 │       ├── featured/             # Featured work images for carousel
-│       └── gallery/              # Gallery images
+│       └── gallery/              # Gallery categories (1 folder per category)
 ├── brand_kit_clg/                # Palette docs, logo variations
 ├── PROJECT_CONTEXT.md            # Project context
 └── package.json
