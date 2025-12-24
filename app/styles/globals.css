@@ -164,7 +164,7 @@
 /* Site utility classes */
 @layer components {
   .site-section {
-    @apply mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8;
   }
 
   .page-header {
@@ -203,7 +203,50 @@
     border-color: rgba(255, 255, 255, 0.05);
   }
 
-  .site-card:hover {
+  .link-pill {
+    @apply border-border bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors;
+  }
+
+  /* Gallery utilities */
+  .gallery-categories-grid {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+
+  .gallery-images-grid {
+    @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .gallery-card {
+    position: relative;
+    @apply block overflow-hidden rounded-lg transition-all duration-200;
+    background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 8px 16px -4px rgba(0, 0, 0, 0.1),
+      0 4px 8px -2px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .gallery-category-card {
+    border-width: 2px;
+    border-color: color-mix(in oklab, var(--border) 70%, transparent);
+  }
+
+  .gallery-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary) 0%, transparent 50%);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .dark .gallery-card {
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .gallery-card:hover {
     transform: translateY(-2px);
     box-shadow:
       0 12px 24px -6px rgba(0, 0, 0, 0.15),
@@ -211,7 +254,106 @@
       inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
 
-  .link-pill {
-    @apply border-border bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors;
+  .gallery-card-media {
+    @apply relative w-full;
+  }
+
+  .gallery-card-media--category {
+    aspect-ratio: 16 / 9;
+  }
+
+  .gallery-card-media--image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .gallery-card-image {
+    @apply object-cover transition-transform duration-200;
+  }
+
+  .gallery-card:hover .gallery-card-image {
+    transform: scale(1.02);
+  }
+
+  .gallery-card-placeholder {
+    @apply bg-muted text-muted-foreground flex h-full w-full items-center justify-center;
+  }
+
+  .gallery-card-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.15),
+      transparent
+    );
+  }
+
+  .gallery-card-caption {
+    @apply absolute bottom-0 left-0 right-0 flex flex-col items-center gap-1 p-5 text-center;
+  }
+
+  .gallery-card-title {
+    @apply text-white text-2xl font-semibold tracking-tight;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  .gallery-card-meta {
+    @apply inline-flex items-center justify-center rounded-full bg-black/25 px-3 py-1 text-sm font-medium text-white/90;
+    backdrop-filter: blur(6px);
+  }
+
+  .gallery-category-header {
+    position: relative;
+    @apply overflow-hidden rounded-lg p-6 transition-all duration-200;
+    background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 8px 16px -4px rgba(0, 0, 0, 0.1),
+      0 4px 8px -2px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Brighter overlay than the base cards, plus a subtle warm wash (CTA-ish). */
+  .gallery-category-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary) 0%, transparent 55%);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .gallery-category-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(225deg, var(--warm-accent) 0%, transparent 60%);
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .dark .gallery-category-header {
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .gallery-category-header-top {
+     display: grid;
+     grid-template-columns: 1fr auto 1fr;
+    @apply items-start gap-4;
+  }
+
+  .gallery-category-header-title {
+    @apply text-foreground justify-self-center text-3xl font-semibold tracking-tight leading-none sm:text-4xl lg:text-4xl;
+  }
+
+  .gallery-category-header-actions {
+    @apply flex justify-self-end gap-2;
+  }
+
+  .gallery-category-header-description {
+     max-width: 60rem;
+    @apply text-muted-foreground mx-auto mt-4 text-center text-base font-medium leading-relaxed sm:text-lg;
   }
 }

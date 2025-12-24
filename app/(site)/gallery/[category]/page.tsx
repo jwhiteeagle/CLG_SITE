@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { getCategoryConfig, listCategoryImages, listCategorySlugs } from '@/lib/gallery';
+import { GalleryCategoryHeader } from '@/components/gallery-category-header';
 
 export const dynamicParams = false;
 
@@ -10,12 +11,13 @@ export function generateStaticParams() {
   return listCategorySlugs().map((category) => ({ category }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { category?: string };
-}): Metadata {
-  const category = getCategoryConfig(params.category);
+  params: Promise<{ category?: string }>;
+}): Promise<Metadata> {
+  const { category: categorySlug } = await params;
+  const category = getCategoryConfig(categorySlug);
   return {
     title: `${category.title} | Gallery`,
     description: category.description
@@ -30,12 +32,12 @@ function altFromFilename(filename: string): string {
   return noPrefix.replace(/[-_]+/g, ' ').trim() || 'Gallery image';
 }
 
-export default function GalleryCategoryPage({
+export default async function GalleryCategoryPage({
   params,
 }: {
-  params: { category?: string };
+  params: Promise<{ category?: string }>;
 }) {
-  const slug = params.category;
+  const { category: slug } = await params;
   if (typeof slug !== 'string') {
     notFound();
   }
@@ -50,9 +52,18 @@ export default function GalleryCategoryPage({
 
   return (
     <div className="site-section">
-      <div className="page-header">
-        <h1>{category.title}</h1>
-        {category.description ? <p>{category.description}</p> : null}
+      <div className="mb-8">
+        <GalleryCategoryHeader
+          title={category.title}
+          description={
+            <div className="space-y-1">
+              {category.description ? <p>{category.description}</p> : null}
+              <p className="text-muted-foreground text-sm">
+                {images.length} images
+              </p>
+            </div>
+          }
+        />
       </div>
 
       {images.length === 0 ? (
@@ -60,7 +71,7 @@ export default function GalleryCategoryPage({
           No images found in this category yet.
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="gallery-images-grid">
           {images.map((image) => {
             const src = `/images/gallery/${slug}/${image}`;
             return (
@@ -69,15 +80,15 @@ export default function GalleryCategoryPage({
                 href={src}
                 target="_blank"
                 rel="noreferrer"
-                className="site-card group block overflow-hidden p-0"
+                className="gallery-card"
               >
-                <div className="relative aspect-square w-full">
+                <div className="gallery-card-media gallery-card-media--image">
                   <Image
                     src={src}
                     alt={altFromFilename(image)}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+                    className="gallery-card-image"
                   />
                 </div>
               </a>

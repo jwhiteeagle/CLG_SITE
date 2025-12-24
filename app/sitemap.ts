@@ -39,5 +39,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${SITE_URL}/ebay-store`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${SITE_URL}/paintfinity`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
   ];
 }

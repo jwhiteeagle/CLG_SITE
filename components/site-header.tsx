@@ -12,7 +12,7 @@ const navLinks = [
 export function SiteHeader() {
   return (
     <header className="border-border bg-background border-b">
-      <div className="mx-auto flex h-20 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link

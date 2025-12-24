@@ -1,14 +1,17 @@
 import Link from 'next/link';
 
+import { BuyMeACoffeeButton } from '@/components/buy-me-a-coffee-button';
+
 export function SiteFooter() {
   return (
     <footer className="border-border bg-background border-t">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 lg:px-8">
+        <BuyMeACoffeeButton />
         <p className="text-muted-foreground text-sm">
           &copy; {new Date().getFullYear()} Chief Live Gaming. All rights
           reserved.
         </p>
-        <div className="flex gap-4 text-sm">
+        <div className="flex flex-wrap justify-center gap-4 text-sm">
           <Link
             href="/commissions"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -20,6 +23,18 @@ export function SiteFooter() {
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             About
+          </Link>
+          <Link
+            href="/ebay-store"
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            eBay Store
+          </Link>
+          <Link
+            href="/paintfinity"
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Paintfinity
           </Link>
         </div>
       </div>
