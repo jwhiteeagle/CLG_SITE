@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { BuyMeACoffeeButton } from '@/components/buy-me-a-coffee-button';
+import { BuyMeACoffeeButton } from '@/components/app/buy-me-a-coffee-button';
 import { cn } from '@/lib/utils';
 
 type BmacQrBlockProps = {

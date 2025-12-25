@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { TextCardRem60 } from '@/components/text-card-rem60';
+import { TextCardRem60 } from '@/components/app/text-card-rem60';
 import { listPublicImages } from '@/lib/public-images';
-import { BmacQrBlock } from '@/components/bmac.qr.block';
-import { GalleryCategoryHeader } from '@/components/gallery-category-header';
+import { BmacQrBlock } from '@/components/app/bmac.qr.block';
+import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
 
 export default function AboutPage() {
   const images = listPublicImages('images/about');

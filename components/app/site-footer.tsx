@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { BuyMeACoffeeButton } from '@/components/buy-me-a-coffee-button';
+import { BuyMeACoffeeButton } from '@/components/app/buy-me-a-coffee-button';
 
 export function SiteFooter() {
   return (

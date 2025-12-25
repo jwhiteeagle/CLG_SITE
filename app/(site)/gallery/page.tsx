@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { listCategories } from '@/lib/gallery';
-import { GalleryCategoryHeader } from '@/components/gallery-category-header';
+import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
 
 export default function GalleryPage() {
   const categories = listCategories();

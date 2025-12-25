@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { GALLERY_CATEGORIES, type GalleryCategoryConfig } from './gallery-config';

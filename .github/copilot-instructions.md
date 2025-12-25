@@ -12,7 +12,7 @@ This is a Next.js (v16) site using the App Router (`app/`) with TypeScript (stri
 
 # High-level architecture notes
 
-- App Router: The codebase uses Next's `app/` directory — prefer server components by default and add `"use client"` at the top of files that require client-side hooks or browser-only libraries (examples: `components/theme-toggle.tsx`, `components/featured-carousel.tsx`).
+- App Router: The codebase uses Next's `app/` directory - prefer server components by default and add `"use client"` at the top of files that require client-side hooks or browser-only libraries (examples: `components/app/theme-toggle.tsx`, `components/app/featured-carousel.tsx`).
 - UI primitives: `components/ui/*` hold the building blocks (buttons, inputs, carousel). They use `class-variance-authority` (`cva`) for style variants and the shared `cn` helper in `lib/utils.ts` (which calls `clsx` + `twMerge`). Follow these patterns when adding new primitives.
 - Theming: Theme tokens live as CSS custom properties in `app/styles/globals.css`. `next-themes` is used via `components/theme-provider.tsx` and `components/theme-toggle.tsx` — avoid hard-coded colors; prefer the CSS variables (e.g. `var(--primary)`, `var(--card)`).
 - Images & performance: Images live in `public/images/...` and are rendered with Next's `Image` component using `fill` and `priority` for hero/featured items (see `components/featured-carousel.tsx`). When adding large galleries, keep `priority` only for the first image.
@@ -34,19 +34,19 @@ This is a Next.js (v16) site using the App Router (`app/`) with TypeScript (stri
 
 # Integration points & dependencies to be aware of
 
-- `next-themes` — theme context provider; client usage in `components/theme-provider.tsx` and `components/theme-toggle.tsx`.
-- `embla-carousel-react` + `embla-carousel-autoplay` — used in `components/featured-carousel.tsx` and underlying `components/ui/carousel.tsx`.
+- `next-themes` - theme context provider; client usage in `components/app/theme-provider.tsx` and `components/app/theme-toggle.tsx`.
+- `embla-carousel-react` + `embla-carousel-autoplay` - used in `components/app/featured-carousel.tsx` and underlying `components/ui/carousel.tsx`.
 - `class-variance-authority` + `clsx` + `tailwind-merge` — pattern for variant-driven UI primitives in `components/ui/*`.
 - `lucide-react` — icons used in toggles and controls.
 
 # Examples to follow (copy/adapt)
 
 - Client component hook pattern (theme-toggle):
-  - File: `components/theme-toggle.tsx`
+  - File: `components/app/theme-toggle.tsx`
   - Key: uses `"use client"`, `useTheme()` from `next-themes`, guarded mount check before accessing `resolvedTheme`.
 
 - Carousel + images:
-  - File: `components/featured-carousel.tsx`
+  - File: `components/app/featured-carousel.tsx`
   - Key: uses Embla Autoplay plugin, `next/image` with `fill`, images served from `/images/featured/<name>`.
 
 # When editing or adding features

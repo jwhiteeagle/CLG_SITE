@@ -1,5 +1,5 @@
-import { SiteHeader } from '@/components/site-header';
-import { SiteFooter } from '@/components/site-footer';
+import { SiteHeader } from '@/components/app/site-header';
+import { SiteFooter } from '@/components/app/site-footer';
 
 export default function SiteLayout({
   children,

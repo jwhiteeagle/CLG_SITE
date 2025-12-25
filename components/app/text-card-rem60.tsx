@@ -19,7 +19,7 @@ export function TextCardRem60({
     <div
       className={cn('site-card bg-warm-accent/7 mx-auto max-w-240', className)}
     >
-      <div className="prose prose-slate max-w-none text-center">{children}</div>
+      <div className="max-w-none text-center">{children}</div>
     </div>
   );
 

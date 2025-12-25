@@ -131,8 +131,8 @@
   --input: oklch(22% 0.03 265);
   --ring: oklch(65% 0.12 235); /* steel blue focus ring */
 
-  /* Warm accent - desaturated orange for visual interest */
-  --warm-accent: oklch(43.586% 0.16228 359.184); /* muted amber/copper */
+  /* Warm accent - magenta whisper for visual interest */
+  --warm-accent: oklch(43.586% 0.16228 359.184); /* muted magenta */
   --warm-accent-foreground: oklch(19.624% 0.03683 52.61);
 
   /* Charts - muted but distinct, analogous cool with warm whisper */
@@ -161,6 +161,31 @@
   }
 }
 
+@utility surface-clickable {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 16px -4px rgba(0, 0, 0, 0.1),
+    0 4px 8px -2px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary) 0%, transparent 50%);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+}
+
+.dark .surface-clickable {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
 /* Site utility classes */
 @layer components {
   .site-section {
@@ -177,10 +202,12 @@
     @apply text-muted-foreground;
   }
 
-  /* iOS-inspired card with gradient overlay, outer shadow, crisp border */
-  .site-card {
+  /* Shared surface styling (cards/headers). */
+  .site-card,
+  .gallery-card,
+  .gallery-category-header {
     position: relative;
-    @apply rounded-lg p-6 transition-all duration-200;
+    @apply rounded-lg transition-all duration-200;
     background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow:
@@ -189,7 +216,13 @@
       inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
 
-  .site-card::before {
+  /* iOS-inspired card with gradient overlay, outer shadow, crisp border */
+  .site-card {
+    @apply p-6;
+  }
+
+  .site-card::before,
+  .gallery-card::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -197,14 +230,6 @@
     background: linear-gradient(135deg, var(--primary) 0%, transparent 50%);
     opacity: 0.08;
     pointer-events: none;
-  }
-
-  .dark .site-card {
-    border-color: rgba(255, 255, 255, 0.05);
-  }
-
-  .link-pill {
-    @apply border-border bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors;
   }
 
   /* Gallery utilities */
@@ -217,14 +242,7 @@
   }
 
   .gallery-card {
-    position: relative;
-    @apply block overflow-hidden rounded-lg transition-all duration-200;
-    background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow:
-      0 8px 16px -4px rgba(0, 0, 0, 0.1),
-      0 4px 8px -2px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    @apply block overflow-hidden;
   }
 
   .gallery-category-card {
@@ -232,17 +250,9 @@
     border-color: color-mix(in oklab, var(--border) 70%, transparent);
   }
 
-  .gallery-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, var(--primary) 0%, transparent 50%);
-    opacity: 0.08;
-    pointer-events: none;
-  }
-
-  .dark .gallery-card {
+  .dark .site-card,
+  .dark .gallery-card,
+  .dark .gallery-category-header {
     border-color: rgba(255, 255, 255, 0.05);
   }
 
@@ -303,14 +313,7 @@
   }
 
   .gallery-category-header {
-    position: relative;
-    @apply overflow-hidden rounded-lg p-6 transition-all duration-200;
-    background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow:
-      0 8px 16px -4px rgba(0, 0, 0, 0.1),
-      0 4px 8px -2px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    @apply overflow-hidden p-6;
   }
 
   /* Brighter overlay than the base cards, plus a subtle warm wash (CTA-ish). */
@@ -334,13 +337,9 @@
     pointer-events: none;
   }
 
-  .dark .gallery-category-header {
-    border-color: rgba(255, 255, 255, 0.05);
-  }
-
   .gallery-category-header-top {
-     display: grid;
-     grid-template-columns: 1fr auto 1fr;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     @apply items-start gap-4;
   }
 
@@ -353,7 +352,7 @@
   }
 
   .gallery-category-header-description {
-     max-width: 60rem;
+    max-width: 60rem;
     @apply text-muted-foreground mx-auto mt-4 text-center text-base font-medium leading-relaxed sm:text-lg;
   }
 }

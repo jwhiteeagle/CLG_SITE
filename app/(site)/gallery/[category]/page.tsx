@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { getCategoryConfig, listCategoryImages, listCategorySlugs } from '@/lib/gallery';
-import { GalleryCategoryHeader } from '@/components/gallery-category-header';
+import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
 
 export const dynamicParams = false;
 

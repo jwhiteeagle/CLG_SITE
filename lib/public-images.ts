@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -32,4 +34,3 @@ export function listPublicImages(publicSubdir: string): string[] {
       return a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
     });
 }
-

@@ -46,7 +46,7 @@
 - **Carousel:** embla-carousel-react with autoplay plugin (4s delay)
 - **Global providers** at root layout level (theme)
 - **Prefer Server Components** unless interactivity required
-- **Custom utility classes** in `globals.css`: `.site-section`, `.site-card`, `.page-header`, `.link-pill`
+- **Custom utility classes** in `globals.css`: `.site-section`, `.site-card`, `.page-header`
 - **Theme tokens:** oklch color format, Bilibili-style chromatic grays
 - **Typography:** Orbitron (extrabold, 2xl) for header branding + (bold, base) for tagline; Geist Sans for body text
 - **iOS-inspired design:** Gradient overlays (8% opacity), outer shadows, crisp borders, subtle rounded corners

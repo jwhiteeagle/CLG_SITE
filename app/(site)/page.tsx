@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FeaturedCarousel } from '@/components/featured-carousel';
+import { FeaturedCarousel } from '@/components/app/featured-carousel';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { listCategories } from '@/lib/gallery';

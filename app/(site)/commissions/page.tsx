@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { CONTACT_EMAIL, buildMailto } from '@/lib/contact';
-import { CopyableTemplateBox } from '@/components/copyable-template-box';
+import { CopyableTemplateBox } from '@/components/app/copyable-template-box';
 
 const COMMISSION_TEMPLATE = `Project Overview- custom requests, color scheme details, influences, etc:
 Model list- if you don't know the full details yet, thats okay too!:

@@ -1,5 +1,5 @@
-import { GalleryCategoryHeader } from '@/components/gallery-category-header';
-import { TextCardRem60 } from '@/components/text-card-rem60';
+import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
+import { TextCardRem60 } from '@/components/app/text-card-rem60';
 
 export default function EbayStorePage() {
   return (
