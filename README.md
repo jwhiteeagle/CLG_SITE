@@ -81,9 +81,9 @@ Defined in `app/styles/globals.css`:
 
 | Class           | Purpose                                                       |
 | --------------- | ------------------------------------------------------------- |
-| `.site-section` | Responsive container (`max-w-5xl`, responsive padding)        |
-| `.page-header`  | Title + subtitle stack with spacing                           |
+| `.site-section` | Responsive container (`max-w-7xl`, responsive padding)        |
 | `.site-card`    | iOS-inspired card with gradient overlay, outer shadow, border |
+| `.surface-clickable` | Shared clickable surface (hover/focus styling)          |
 
 All classes use shadcn theme tokens for light/dark compatibility.
 
@@ -116,4 +116,3 @@ The home page features an auto-playing carousel:
 - **Pauses on hover** and user interaction
 - **Aspect ratio:** 16:9 (aspect-video)
 - **Navigation:** Previous/Next arrows + swipe/drag support
-

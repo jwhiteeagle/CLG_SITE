@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { getCategoryConfig, listCategoryImages, listCategorySlugs } from '@/lib/gallery';
-import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
+import { PageTitleCard } from '@/components/app/page-title-card';
+import { GalleryImageCard } from '@/components/app/gallery-card';
 
 export const dynamicParams = false;
 
@@ -53,45 +53,30 @@ export default async function GalleryCategoryPage({
   return (
     <div className="site-section">
       <div className="mb-8">
-        <GalleryCategoryHeader
+        <PageTitleCard
           title={category.title}
           description={
             <div className="space-y-1">
               {category.description ? <p>{category.description}</p> : null}
-              <p className="text-muted-foreground text-sm">
-                {images.length} images
-              </p>
+              <p className="type-body-sm">{images.length} images</p>
             </div>
           }
         />
       </div>
 
       {images.length === 0 ? (
-        <div className="text-muted-foreground text-sm">
-          No images found in this category yet.
-        </div>
+        <div className="type-body-sm">No images found in this category yet.</div>
       ) : (
         <div className="gallery-images-grid">
           {images.map((image) => {
             const src = `/images/gallery/${slug}/${image}`;
             return (
-              <a
+              <GalleryImageCard
                 key={image}
                 href={src}
-                target="_blank"
-                rel="noreferrer"
-                className="gallery-card"
-              >
-                <div className="gallery-card-media gallery-card-media--image">
-                  <Image
-                    src={src}
-                    alt={altFromFilename(image)}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="gallery-card-image"
-                  />
-                </div>
-              </a>
+                imageSrc={src}
+                imageAlt={altFromFilename(image)}
+              />
             );
           })}
         </div>

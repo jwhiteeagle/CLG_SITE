@@ -1,10 +1,13 @@
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FeaturedCarousel } from '@/components/app/featured-carousel';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { listCategories } from '@/lib/gallery';
+import { GalleryCategoryCard } from '@/components/app/gallery-card';
+import { SectionHeader } from '@/components/app/section-header';
+import { CtaCard } from '@/components/app/cta-card';
 
 function getFeaturedImages(): string[] {
   const featuredDir = join(process.cwd(), 'public', 'images', 'featured');
@@ -33,15 +36,25 @@ export default function Home() {
 
       {/* Hero intro */}
       <section className="mb-12">
-        <div className="site-card bg-warm-accent/7">
-          <h1 className="font-orbitron text-foreground text-4xl leading-tight font-extrabold tracking-wide sm:text-5xl">
-            Miniature Painting Services
-          </h1>
-          <p className="text-muted-foreground mt-3 max-w-3xl text-base leading-relaxed sm:text-lg">
-            High-quality commission painting for armies, characters, and display
-            pieces. Clear quotes, steady communication, and polished results.
+        <CtaCard withContainer={false} className="bg-warm-accent/7 ring-0">
+          <h1 className="sr-only">Miniature Painting Services</h1>
+          <div className="mx-auto w-full max-w-lg">
+            <Image
+              src="/images/brand/clg-banner-26-1500x400.webp"
+              alt="Chief Live Gaming banner logo"
+              width={1500}
+              height={400}
+              sizes="(min-width: 640px) 32rem, 90vw"
+              className="h-auto w-full"
+            />
+          </div>
+
+          <p className="type-hero-lede mx-auto max-w-3xl">
+            High-quality commission miniature painting for armies, characters,
+            and display pieces. Custom projects for a wide variety of game
+            systems and styles!
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-2">
             <Button asChild size="lg">
               <Link href="/commissions#contact">Start a Commission</Link>
             </Button>
@@ -49,72 +62,30 @@ export default function Home() {
               <Link href="/gallery">View Gallery</Link>
             </Button>
           </div>
-        </div>
+        </CtaCard>
       </section>
 
       {/* Trust / credibility */}
       <section className="mb-12">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="site-card">
-            <p className="text-primary text-3xl font-semibold">10+ years</p>
-            <p className="text-muted-foreground mt-1 text-sm">
-              Professional commission experience
-            </p>
-          </div>
-          <div className="site-card">
-            <p className="text-primary text-3xl font-semibold">
-              Thousands of minis
-            </p>
-            <p className="text-muted-foreground mt-1 text-sm">
-              Armies, units, and centerpiece models
+            <p className="type-stat-value">Commissions Since 2014</p>
+            <p className="type-stat-label mt-1">
+              I&apos;ve been painting miniatures as my full time job
+              &ldquo;professionally&rdquo; for over a decade!
             </p>
           </div>
           <div className="site-card">
-            <p className="text-primary text-3xl font-semibold">Clear quotes</p>
-            <p className="text-muted-foreground mt-1 text-sm">
-              Transparency before work begins
+            <p className="type-stat-value">Many Game Systems</p>
+            <p className="type-stat-label mt-1">
+              Warhammer, D&D, Kingdom Death, board games, 3dprints, and more!
             </p>
           </div>
           <div className="site-card">
-            <p className="text-primary text-3xl font-semibold">
-              Custom schemes
-            </p>
-            <p className="text-muted-foreground mt-1 text-sm">
-              Built to match your vision
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* How commissions work */}
-      <section className="mb-12">
-        <div className="page-header">
-          <h2 className="text-primary text-2xl font-semibold">
-            How Commissions Work
-          </h2>
-          <p>Simple process, consistent communication, strong results.</p>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div className="site-card bg-warm-accent/7">
-            <h3 className="mb-2 font-semibold">1) Tell me about your project</h3>
-            <p className="text-muted-foreground text-sm">
-              Send references, scope, and deadlines. I’ll ask a few questions
-              and make sure we’re aligned.
-            </p>
-          </div>
-          <div className="site-card bg-warm-accent/7">
-            <h3 className="mb-2 font-semibold">2) Get a clear quote</h3>
-            <p className="text-muted-foreground text-sm">
-              You’ll get a quote and expectations upfront, including schedule
-              and options.
-            </p>
-          </div>
-          <div className="site-card bg-warm-accent/7">
-            <h3 className="mb-2 font-semibold">3) Paint, updates, delivery</h3>
-            <p className="text-muted-foreground text-sm">
-              I paint the project with built-in check-ins, then finish and
-              deliver once approved.
+            <p className="type-stat-value">Models of any size</p>
+            <p className="type-stat-label mt-1">
+              I paint everything from single minis to entire armies. From tiny
+              characters to 20lb resin models!
             </p>
           </div>
         </div>
@@ -122,39 +93,25 @@ export default function Home() {
 
       {/* Featured categories */}
       <section className="mb-12">
-        <div className="page-header">
-          <h2 className="text-primary text-2xl font-semibold">
-            Featured Categories
-          </h2>
-          <p>Jump into the gallery by theme.</p>
-        </div>
+        <SectionHeader
+          title="Featured Categories"
+          description="Jump into the gallery by theme."
+        />
 
         <div className="gallery-categories-grid">
           {categories.map((category) => (
-            <Link
+            <GalleryCategoryCard
               key={category.slug}
               href={`/gallery/${category.slug}`}
-              className="gallery-card gallery-category-card"
-            >
-              <div className="gallery-card-media gallery-card-media--category">
-                {category.coverImage ? (
-                  <Image
-                    src={`/images/gallery/${category.slug}/${category.coverImage}`}
-                    alt={category.title}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="gallery-card-image"
-                  />
-                ) : (
-                  <div className="gallery-card-placeholder">No images yet</div>
-                )}
-                <div className="gallery-card-overlay" />
-                <div className="gallery-card-caption">
-                  <h3 className="gallery-card-title">{category.title}</h3>
-                  <p className="gallery-card-meta">{category.imageCount} images</p>
-                </div>
-              </div>
-            </Link>
+              title={category.title}
+              titleAs="h3"
+              meta={`${category.imageCount} images`}
+              imageSrc={
+                category.coverImage
+                  ? `/images/gallery/${category.slug}/${category.coverImage}`
+                  : null
+              }
+            />
           ))}
         </div>
       </section>
@@ -162,16 +119,16 @@ export default function Home() {
       {/* Contact CTA footer */}
       <section className="mb-12">
         <div className="site-card bg-warm-accent/7">
-          <h2 className="text-primary mb-2 text-2xl font-semibold">
-            Ready to start a project?
-          </h2>
-          <p className="text-muted-foreground mb-4 max-w-2xl">
-            Tell me what you’re looking for, and I’ll get back to you with next
-            steps and a quote.
+          <h2 className="type-section-title mb-2">Ready to start a project?</h2>
+          <p className="type-body mb-4 max-w-2xl">
+            Tell me what you&apos;re looking for, and I&apos;ll get back to you
+            with next steps and a quote.
           </p>
           <div className="flex flex-wrap gap-2">
             <Button asChild size="lg">
-              <Link href="/commissions#contact">Tell me about your project</Link>
+              <Link href="/commissions#contact">
+                Tell me about your project
+              </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link href="/commissions">Commission Info</Link>

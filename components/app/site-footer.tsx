@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="border-border bg-background border-t">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 lg:px-8">
         <BuyMeACoffeeButton />
-        <p className="text-muted-foreground text-sm">
+        <p className="type-body-sm">
           &copy; {new Date().getFullYear()} Chief Live Gaming. All rights
           reserved.
         </p>

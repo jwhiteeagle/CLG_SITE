@@ -1,8 +1,9 @@
-import Image from 'next/image';
-import { TextCardRem60 } from '@/components/app/text-card-rem60';
+import { TextCard } from '@/components/app/text-card';
 import { listPublicImages } from '@/lib/public-images';
 import { BmacQrBlock } from '@/components/app/bmac.qr.block';
-import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
+import { PageTitleCard } from '@/components/app/page-title-card';
+import { GalleryImageCard } from '@/components/app/gallery-card';
+import { SectionHeader } from '@/components/app/section-header';
 
 export default function AboutPage() {
   const images = listPublicImages('images/about');
@@ -10,14 +11,14 @@ export default function AboutPage() {
   return (
     <div className="site-section">
       <div className="mb-8">
-        <GalleryCategoryHeader
+        <PageTitleCard
           title="About Jake"
           description="Chief Live Gaming? Who the #$%^&* is that?"
         />
       </div>
 
       <div className="mx-auto max-w-240 space-y-10">
-        <TextCardRem60 withContainer={false}>
+        <TextCard withContainer={false}>
           <p>
             Jake has been painting miniatures professionally for over a decade,
             running Chief Live Gaming as a home-based commission studio. He
@@ -27,43 +28,29 @@ export default function AboutPage() {
             and studio pieces. To get in touch about a project, check out the
             Commissions page!
           </p>
-        </TextCardRem60>
+        </TextCard>
 
         {images.length > 0 ? (
           <section>
-            <h2 className="text-primary mb-4 text-xl font-semibold">Photos</h2>
+            <SectionHeader title="Photos" className="mb-4" />
             <div className="gallery-images-grid">
               {images.map((image) => {
                 const src = `/images/about/${image}`;
                 return (
-                  <a
+                  <GalleryImageCard
                     key={image}
                     href={src}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="gallery-card"
-                  >
-                    <div className="gallery-card-media gallery-card-media--image">
-                      <Image
-                        src={src}
-                        alt="About photo"
-                        fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="gallery-card-image"
-                      />
-                    </div>
-                  </a>
+                    imageSrc={src}
+                    imageAlt="About photo"
+                  />
                 );
               })}
-            </div>            
+            </div>
           </section>
         ) : null}
 
         <BmacQrBlock />
-        
       </div>
     </div>
-
-    
   );
 }

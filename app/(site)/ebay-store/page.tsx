@@ -1,22 +1,22 @@
-import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
-import { TextCardRem60 } from '@/components/app/text-card-rem60';
+import { PageTitleCard } from '@/components/app/page-title-card';
+import { TextCard } from '@/components/app/text-card';
 
 export default function EbayStorePage() {
   return (
     <div className="site-section">
       <div className="mb-8">
-        <GalleryCategoryHeader
+        <PageTitleCard
           title="eBay Store"
           description="Placeholder page for the Chief Live Gaming eBay store."
         />
       </div>
 
-      <TextCardRem60>
-        <p className="text-muted-foreground">
+      <TextCard>
+        <p>
           Coming soon. This page will link out to my eBay listings and include a
           quick overview of what I sell.
         </p>
-      </TextCardRem60>
+      </TextCard>
     </div>
   );
 }

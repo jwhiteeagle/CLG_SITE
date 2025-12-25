@@ -1,7 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { listCategories } from '@/lib/gallery';
-import { GalleryCategoryHeader } from '@/components/app/gallery-category-header';
+import { PageTitleCard } from '@/components/app/page-title-card';
+import { GalleryCategoryCard } from '@/components/app/gallery-card';
 
 export default function GalleryPage() {
   const categories = listCategories();
@@ -9,7 +8,7 @@ export default function GalleryPage() {
   return (
     <div className="site-section">
       <div className="mb-8">
-        <GalleryCategoryHeader
+        <PageTitleCard
           title="Gallery"
           description={
             <>
@@ -19,7 +18,7 @@ export default function GalleryPage() {
                 burnout. Unfortunately, that means I often forget to take
                 pictures of finished projects.
               </p>
-              <p className="mt-4 text-2xl font-bold">
+              <p className="type-section-title mt-4">
                 Browse some of my work below in <em>organized-ish</em> categories.
               </p>
             </>
@@ -29,31 +28,17 @@ export default function GalleryPage() {
 
       <div className="gallery-categories-grid">
         {categories.map((category) => (
-          <Link
+          <GalleryCategoryCard
             key={category.slug}
             href={`/gallery/${category.slug}`}
-            className="gallery-card gallery-category-card"
-          >
-            <div className="gallery-card-media gallery-card-media--category">
-              {category.coverImage ? (
-                <Image
-                  src={`/images/gallery/${category.slug}/${category.coverImage}`}
-                  alt={category.title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="gallery-card-image"
-                />
-              ) : (
-                <div className="gallery-card-placeholder">No images yet</div>
-              )}
-
-              <div className="gallery-card-overlay" />
-              <div className="gallery-card-caption">
-                <h2 className="gallery-card-title">{category.title}</h2>
-                <p className="gallery-card-meta">{category.imageCount} images</p>
-              </div>
-            </div>
-          </Link>
+            title={category.title}
+            meta={`${category.imageCount} images`}
+            imageSrc={
+              category.coverImage
+                ? `/images/gallery/${category.slug}/${category.coverImage}`
+                : null
+            }
+          />
         ))}
       </div>
     </div>

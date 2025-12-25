@@ -15,7 +15,7 @@ export function BrandMark({ className }: BrandMarkProps) {
         className="surface-clickable flex h-[72px] w-[72px] items-center justify-center rounded-lg hover:-translate-y-0.5"
       >
         <Image
-          src="/images/brand/CLG 2026 Brush Logo.png"
+          src="/images/brand/CLG 2026 Brush Logo.webp"
           alt="Chief Live Gaming"
           width={70}
           height={70}
