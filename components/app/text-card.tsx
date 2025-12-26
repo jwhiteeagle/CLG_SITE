@@ -8,6 +8,7 @@ export type TextCardProps = {
   containerClassName?: string;
   contentClassName?: string;
   withContainer?: boolean;
+  constrainWidth?: boolean;
   align?: 'center' | 'left';
 };
 
@@ -17,10 +18,17 @@ export function TextCard({
   containerClassName,
   contentClassName,
   withContainer = true,
+  constrainWidth = true,
   align = 'center',
 }: TextCardProps) {
   const card = (
-    <div className={cn('site-card bg-warm-accent/7 mx-auto max-w-240', className)}>
+    <div
+      className={cn(
+        'site-card bg-warm-accent/7',
+        constrainWidth ? 'mx-auto max-w-240' : null,
+        className
+      )}
+    >
       <div
         className={cn(
           'type-body max-w-none space-y-4',
@@ -36,7 +44,12 @@ export function TextCard({
   if (!withContainer) return card;
 
   return (
-    <div className={cn('mx-auto max-w-240 space-y-10', containerClassName)}>
+    <div
+      className={cn(
+        constrainWidth ? 'mx-auto max-w-240 space-y-10' : 'space-y-10',
+        containerClassName
+      )}
+    >
       {card}
     </div>
   );

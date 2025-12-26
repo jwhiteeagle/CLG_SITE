@@ -15,8 +15,8 @@ export default function GalleryPage() {
               <p>
                 I try to take pictures of most of the things I paint. I
                 generally work on 2-4 commissions at once to avoid creative
-                burnout. Unfortunately, that means I often forget to take
-                pictures of finished projects.
+                burnout. I try to snag pictures of finished pieces in my lightbox before I ship them
+                out. There are some work-in-progress and more candid phone camera shots sprinkled in too!
               </p>
               <p className="type-section-title mt-4">
                 Browse some of my work below in <em>organized-ish</em> categories.

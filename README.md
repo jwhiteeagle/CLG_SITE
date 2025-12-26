@@ -82,6 +82,7 @@ Defined in `app/styles/globals.css`:
 | Class           | Purpose                                                       |
 | --------------- | ------------------------------------------------------------- |
 | `.site-section` | Responsive container (`max-w-7xl`, responsive padding)        |
+| `.site-hero`    | Wider hero container (`max-w-screen-2xl`, responsive padding) |
 | `.site-card`    | iOS-inspired card with gradient overlay, outer shadow, border |
 | `.surface-clickable` | Shared clickable surface (hover/focus styling)          |
 
@@ -113,6 +114,6 @@ The home page features an auto-playing carousel:
 
 - **Images** from `/public/images/featured/` (auto-detected at build time)
 - **4 second** auto-play delay
-- **Pauses on hover** and user interaction
+- **Controls**: Previous / Play-Pause / Next (no hover pause)
 - **Aspect ratio:** 16:9 (aspect-video)
-- **Navigation:** Previous/Next arrows + swipe/drag support
+- **Navigation:** Buttons + swipe/drag support
