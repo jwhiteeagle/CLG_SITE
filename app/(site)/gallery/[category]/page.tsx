@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 import { getCategoryConfig, listCategoryImages, listCategorySlugs } from '@/lib/gallery';
 import { PageTitleCard } from '@/components/app/page-title-card';
-import { GalleryImageCard } from '@/components/app/gallery-card';
+import { GalleryLightboxGrid, type LightboxImage } from '@/components/app/gallery-lightbox';
 
 export const dynamicParams = false;
 
@@ -49,6 +49,10 @@ export default async function GalleryCategoryPage({
 
   const category = getCategoryConfig(slug);
   const images = listCategoryImages(slug);
+  const lightboxImages: LightboxImage[] = images.map((image) => ({
+    src: `/images/gallery/${slug}/${image}`,
+    alt: altFromFilename(image),
+  }));
 
   return (
     <div className="site-section">
@@ -67,19 +71,7 @@ export default async function GalleryCategoryPage({
       {images.length === 0 ? (
         <div className="type-body-sm">No images found in this category yet.</div>
       ) : (
-        <div className="gallery-images-grid">
-          {images.map((image) => {
-            const src = `/images/gallery/${slug}/${image}`;
-            return (
-              <GalleryImageCard
-                key={image}
-                href={src}
-                imageSrc={src}
-                imageAlt={altFromFilename(image)}
-              />
-            );
-          })}
-        </div>
+        <GalleryLightboxGrid images={lightboxImages} />
       )}
     </div>
   );

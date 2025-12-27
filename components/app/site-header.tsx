@@ -8,6 +8,8 @@ const navLinks = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/about', label: 'About' },
   { href: '/commissions', label: 'Commissions' },
+  { href: '/ebay-store', label: 'eBay Store' },
+  { href: '/paintfinity', label: 'Paintfinity' },
 ];
 
 export function SiteHeader() {
@@ -17,7 +19,7 @@ export function SiteHeader() {
         <BrandMark />
 
         {/* Navigation */}
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-1 overflow-x-auto sm:gap-2">
           {navLinks.map((link) => (
             <Button key={link.href} asChild variant="nav" size="nav">
               <Link href={link.href}>{link.label}</Link>
