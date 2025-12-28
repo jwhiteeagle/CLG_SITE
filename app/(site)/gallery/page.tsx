@@ -1,15 +1,17 @@
-import { listCategories } from '@/lib/gallery';
+import { listCategoriesWithCoverPool } from '@/lib/gallery';
 import { PageTitleCard } from '@/components/app/page-title-card';
-import { GalleryCategoryCard } from '@/components/app/gallery-card';
+import { GalleryCategoryCardCycler } from '@/components/app/gallery-category-card-cycler';
+import { GalleryReduceMotionToggle } from '@/components/app/gallery-reduce-motion-toggle';
 
 export default function GalleryPage() {
-  const categories = listCategories();
+  const categories = listCategoriesWithCoverPool({ poolSize: 24 });
 
   return (
     <div className="site-section">
       <div className="mb-8">
         <PageTitleCard
           title="Gallery"
+          actions={<GalleryReduceMotionToggle />}
           description={
             <>
               <p>
@@ -27,17 +29,21 @@ export default function GalleryPage() {
       </div>
 
       <div className="gallery-categories-grid">
-        {categories.map((category) => (
-          <GalleryCategoryCard
+        {categories.map((category, index) => (
+          <GalleryCategoryCardCycler
             key={category.slug}
             href={`/gallery/${category.slug}`}
             title={category.title}
             meta={`${category.imageCount} images`}
-            imageSrc={
+            initialImageSrc={
               category.coverImage
                 ? `/images/gallery/${category.slug}/${category.coverImage}`
                 : null
             }
+            candidateImageSrcs={category.coverPool.map(
+              (filename) => `/images/gallery/${category.slug}/${filename}`
+            )}
+            cardIndex={index}
           />
         ))}
       </div>

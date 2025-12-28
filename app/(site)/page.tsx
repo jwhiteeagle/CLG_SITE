@@ -4,10 +4,10 @@ import Image from 'next/image';
 import { FeaturedCarousel } from '@/components/app/featured-carousel';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { listCategories } from '@/lib/gallery';
-import { GalleryCategoryCard } from '@/components/app/gallery-card';
+import { listCategoriesWithCoverPool } from '@/lib/gallery';
 import { SectionHeader } from '@/components/app/section-header';
 import { CtaCard } from '@/components/app/cta-card';
+import { GalleryCategoryCardCycler } from '@/components/app/gallery-category-card-cycler';
 
 function getFeaturedImages(): string[] {
   const featuredDir = join(process.cwd(), 'public', 'images', 'featured');
@@ -25,7 +25,7 @@ function getFeaturedImages(): string[] {
 
 export default function Home() {
   const featuredImages = getFeaturedImages();
-  const categories = listCategories().slice(0, 4);
+  const categories = listCategoriesWithCoverPool({ poolSize: 18 }).slice(0, 4);
 
   return (
     <>
@@ -92,30 +92,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Featured categories */}
-        <section className="mb-12">
-          <SectionHeader
-            title="Featured Categories"
-            description="Jump into the gallery by theme."
-          />
+      {/* Featured categories */}
+      <section className="mb-12">
+        <SectionHeader
+          title="Featured Categories"
+          description="Jump into the gallery by theme."
+        />
 
-          <div className="gallery-categories-grid">
-            {categories.map((category) => (
-              <GalleryCategoryCard
-                key={category.slug}
-                href={`/gallery/${category.slug}`}
-                title={category.title}
-                titleAs="h3"
-                meta={`${category.imageCount} images`}
-                imageSrc={
-                  category.coverImage
-                    ? `/images/gallery/${category.slug}/${category.coverImage}`
-                    : null
-                }
-              />
-            ))}
-          </div>
-        </section>
+        <div className="gallery-categories-grid">
+          {categories.map((category, index) => (
+            <GalleryCategoryCardCycler
+              key={category.slug}
+              href={`/gallery/${category.slug}`}
+              title={category.title}
+              titleAs="h3"
+              meta={`${category.imageCount} images`}
+              initialImageSrc={
+                category.coverImage
+                  ? `/images/gallery/${category.slug}/${category.coverImage}`
+                  : null
+              }
+              candidateImageSrcs={category.coverPool.map(
+                (filename) => `/images/gallery/${category.slug}/${filename}`
+              )}
+              cardIndex={index}
+            />
+          ))}
+        </div>
+      </section>
 
         {/* Contact CTA footer */}
         <section className="mb-12">
