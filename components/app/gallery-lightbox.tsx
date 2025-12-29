@@ -29,6 +29,10 @@ function GalleryLightbox({
 }: GalleryLightboxProps) {
   const closeButtonRef = React.useRef<HTMLButtonElement | null>(null);
   const lastActiveElementRef = React.useRef<HTMLElement | null>(null);
+  const touchStartRef = React.useRef<{ x: number; y: number; time: number } | null>(
+    null
+  );
+  const lastSwipeAtRef = React.useRef<number>(0);
 
   const current = images[index];
 
@@ -78,7 +82,48 @@ function GalleryLightbox({
     >
       <div className="relative mx-auto flex h-full max-w-6xl items-center justify-center px-4 py-6">
         <div className="relative w-full">
-          <div className="relative h-[80vh] w-full overflow-hidden rounded-lg border border-white/10 bg-black/20">
+          <div
+            className="relative h-[80vh] w-full overflow-hidden rounded-lg border border-white/10 bg-black/20 touch-pan-y"
+            onTouchStart={(event) => {
+              const target = event.target as HTMLElement | null;
+              if (target?.closest('button')) return;
+
+              const touch = event.touches[0];
+              if (!touch) return;
+              touchStartRef.current = {
+                x: touch.clientX,
+                y: touch.clientY,
+                time: Date.now(),
+              };
+            }}
+            onTouchEnd={(event) => {
+              const target = event.target as HTMLElement | null;
+              if (target?.closest('button')) return;
+
+              const start = touchStartRef.current;
+              touchStartRef.current = null;
+              if (!start) return;
+
+              const touch = event.changedTouches[0];
+              if (!touch) return;
+
+              const now = Date.now();
+              if (now - lastSwipeAtRef.current < 250) return;
+
+              const dx = touch.clientX - start.x;
+              const dy = touch.clientY - start.y;
+              const dt = now - start.time;
+
+              // Quick horizontal swipe only (avoid accidental vertical scroll gestures).
+              if (dt > 600) return;
+              if (Math.abs(dx) < 50) return;
+              if (Math.abs(dx) < Math.abs(dy) + 20) return;
+
+              lastSwipeAtRef.current = now;
+              if (dx < 0) onNext();
+              else onPrev();
+            }}
+          >
             {current ? (
               <Image
                 src={current.src}

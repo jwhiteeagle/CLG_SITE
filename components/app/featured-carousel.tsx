@@ -92,7 +92,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
         <CarouselContent>
           {images.map((image, index) => (
             <CarouselItem key={image}>
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/10 dark:border-white/5">
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/10 bg-black/10 dark:border-white/5 dark:bg-black/30">
                 {/* Gradient overlay for iOS-style depth */}
                 <div
                   className="pointer-events-none absolute inset-0 z-10 rounded-lg opacity-[0.08]"
@@ -106,7 +106,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
                   alt={`Featured work ${index + 1}`}
                   fill
                   sizes="(min-width: 1024px) 1024px, 100vw"
-                  className="object-cover"
+                  className="object-scale-down object-center"
                   priority={index === 0}
                 />
               </div>

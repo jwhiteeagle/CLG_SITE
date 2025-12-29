@@ -36,11 +36,6 @@ export const GALLERY_CATEGORIES: GalleryCategoryConfig[] = [
     description: 'Units, teams, and smaller grouped projects.',
   },
   {
-    slug: 'dnd-board-game',
-    title: 'D&D & Board Games',
-    description: 'Miniatures for tabletop RPGs and board game collections.',
-  },
-  {
     slug: 'studio',
     title: 'Studio',
     description: 'Studio-style photos with clean lighting and close-up detail.',

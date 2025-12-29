@@ -1,6 +1,10 @@
 # Chief Live Gaming
 
-Commission miniature painting business website for [chieflivegaming.com](https://www.chieflivegaming.com).
+Static website for [chieflivegaming.com](https://www.chieflivegaming.com).
+
+Commission miniature painting business landing page, portfolio, organized image galleries, links and info for other projects Jake is working on.
+
+Deployed on lithiumhosting (shared hosting due to build size from images)
 
 ---
 
@@ -11,13 +15,25 @@ Commission miniature painting business website for [chieflivegaming.com](https:/
 | Framework       | Next.js 16 (App Router)    |
 | Language        | TypeScript                 |
 | Styling         | Tailwind CSS v4            |
-| Components      | shadcn/ui (new-york style) |
-| Carousel        | embla-carousel-react       |
+| Components      | shadcn/radix               |
 | Package Manager | npm                        |
 
 ---
 
-## Directory Structure
+## Design Practices
+
+### Frontend Goal: Develop reusable sections to keep route pages lightweight
+- Overkill modular pattern for frontend component design to test strategies for larger future projects. 
+  - primtives imported with radix/shadcn, modified with globals.css
+  - css tokens assembled with primitives avoid repeating markup
+  - shared patterns allow global tweaks to UI and prevent weird drift
+
+- Pair programmed with codex CLI, claude code, gemini CLI for various steps.
+- Managed long term context, universal agent guardrails, TODOs, logs, etc with a local MCP server.
+
+---
+
+## Directory Structure (approuter driven)
 
 ```txt
 clg_site/
@@ -31,89 +47,10 @@ clg_site/
       commissions/page.tsx        # /commissions
       ebay-store/page.tsx         # /ebay-store
       paintfinity/page.tsx        # /paintfinity
-    layout.tsx                    # Root: html, body, fonts (Orbitron), providers
-    styles/globals.css            # Tailwind v4 + theme tokens + site utilities
-  components/
-    ui/                           # shadcn primitives (Button, Card, Carousel, etc.)
-    app/                          # app patterns (Primitives -> Patterns -> Pages)
-      site-header.tsx
-      site-footer.tsx
-      theme-toggle.tsx
-      theme-provider.tsx
-      featured-carousel.tsx
-      brand-mark.tsx
-      gallery-category-header.tsx
-      text-card-rem60.tsx
-      copyable-template-box.tsx
-      buy-me-a-coffee-button.tsx
-      bmac.qr.block.tsx
-  lib/
-    gallery-config.ts
-    gallery.ts
-    public-images.ts
-    contact.ts
-    utils.ts                      # cn() helper
-  public/
-    images/
-      brand/                      # Logo files
-      featured/                   # Featured work images for carousel
-      gallery/                    # Gallery categories (1 folder per category)
-  brand_kit_clg/                  # Palette docs, logo variations
-  PROJECT_CONTEXT.md              # Project context
-  package.json
 ```
 
----
+## Gallery Stuffs
 
-## App Router Patterns
-
-- **Root layout (`app/layout.tsx`):** Wraps entire app - `<html>`, `<body>`, Orbitron font, global CSS, ThemeProvider.
-- **Route group `(site)`:** Groups public pages under shared layout without adding `/site/` to URLs.
-- **Site layout (`app/(site)/layout.tsx`):** Wraps pages with `<SiteHeader />` and `<SiteFooter />`.
-- **Page files:** Each `page.tsx` renders content only; layout handles chrome.
-- **Layouts persist:** Don't remount on navigation - good for nav state, scroll position.
-
----
-
-## Custom Utility Classes
-
-Defined in `app/styles/globals.css`:
-
-| Class           | Purpose                                                       |
-| --------------- | ------------------------------------------------------------- |
-| `.site-section` | Responsive container (`max-w-7xl`, responsive padding)        |
-| `.site-hero`    | Wider hero container (`max-w-screen-2xl`, responsive padding) |
-| `.site-card`    | iOS-inspired card with gradient overlay, outer shadow, border |
-| `.surface-clickable` | Shared clickable surface (hover/focus styling)          |
-
-All classes use shadcn theme tokens for light/dark compatibility.
-
----
-
-## Design System
-
-### iOS-Inspired Styling
-
-- **Gradient overlays:** Subtle diagonal gradient (primary color at 8% opacity)
-- **Outer shadows:** Two-layer soft shadows for floating effect
-- **Crisp borders:** Thin white borders at 10% (light) / 5% (dark) opacity
-- **Rounded corners:** `rounded-lg` and `rounded-md` for modern feel
-- **Hover animations:** Lift elements with enhanced shadows
-
-### Typography
-
-- **Headers:** Orbitron (extrabold, 2xl) for "Chief Live Gaming"
-- **Subheaders:** Orbitron (bold, base) for "Miniature Painting Services"
-- **Body:** Geist Sans
-
----
-
-## Featured Carousel
-
-The home page features an auto-playing carousel:
-
-- **Images** from `/public/images/featured/` (auto-detected at build time)
-- **4 second** auto-play delay
-- **Controls**: Previous / Play-Pause / Next (no hover pause)
-- **Aspect ratio:** 16:9 (aspect-video)
-- **Navigation:** Buttons + swipe/drag support
+- **Category discovery:** folders under `/public/images/gallery/<category>/` drive available category routes.
+- **Index cards (`/gallery`):** initial cover = newest image. then optional client-side cover cycling with a per-user “Gallery motion effect” toggle.
+- **Category pages (`/gallery/[category]`):** click an image to open an in-page lightbox (prev/next + close; supports keyboard + mobile swipe).
