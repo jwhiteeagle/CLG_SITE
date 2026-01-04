@@ -13,7 +13,7 @@ type BmacQrBlockProps = {
 
 export function BmacQrBlock({
   title = 'Support My Work',
-  description = 'Scan the QR code or use the button below to donate.',
+  description = 'Scan the QR code or use any of the buttons below to make a one time donation to support my efforts. Donations are greatly appreciated and are super helpful for any artist!',
   className,
 }: BmacQrBlockProps) {
   return (

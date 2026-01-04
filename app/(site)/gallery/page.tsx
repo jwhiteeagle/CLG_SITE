@@ -15,10 +15,15 @@ export default function GalleryPage() {
           description={
             <>
               <p>
-                I try to take pictures of most of the things I paint. I
-                generally work on 2-4 commissions at once to avoid creative
-                burnout. I try to snag pictures of finished pieces in my lightbox before I ship them
-                out. There are some work-in-progress and more candid phone camera shots sprinkled in too!
+                I have been painting miniatures for over a decade now (woah). My strategy is to 
+                generally book 2-4 simultaneous commissions to avoid creative
+                burnout. This allows me to switch between projects, bouncing around to keep things fresh.
+              </p>
+              <p>
+                I love painting a wide variety of subjects, from large armies to single characters,
+                vehicles, monsters, and terrain. Each category presents its own unique challenges
+                and opportunities for creativity. You will find a mix of work in progress shots, 
+                finished pieces, and more candid snaps. 
               </p>
               <p className="type-section-title mt-4">
                 Browse some of my work below in <em>organized-ish</em> categories.

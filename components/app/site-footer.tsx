@@ -25,10 +25,10 @@ export function SiteFooter() {
             About
           </Link>
           <Link
-            href="/ebay-store"
+            href="/links"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            eBay Store
+            Links
           </Link>
           <Link
             href="/paintfinity"

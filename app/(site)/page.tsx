@@ -25,7 +25,17 @@ function getFeaturedImages(): string[] {
 
 export default function Home() {
   const featuredImages = getFeaturedImages();
-  const categories = listCategoriesWithCoverPool({ poolSize: 18 }).slice(0, 4);
+  const featuredCategorySlugs = new Set([
+    'armies',
+    'big-stuff',
+    'characters',
+    'vehicles',
+    'studio',
+    'kingdom-death-monster',
+  ]);
+  const categories = listCategoriesWithCoverPool({ poolSize: 18 }).filter(
+    (category) => featuredCategorySlugs.has(category.slug)
+  );
 
   return (
     <>
@@ -59,8 +69,14 @@ export default function Home() {
               <Button asChild size="lg">
                 <Link href="/commissions#contact">Start a Commission</Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild size="lg">
                 <Link href="/gallery">View Gallery</Link>
+              </Button>
+              <Button asChild size="lg">
+                <Link href="/about">About</Link>
+              </Button>
+              <Button asChild size="lg">
+                <Link href="/links">Links</Link>
               </Button>
             </div>
           </CtaCard>
@@ -73,7 +89,7 @@ export default function Home() {
               <p className="type-stat-value">Commissions Since 2014</p>
               <p className="type-stat-label mt-1">
                 I&apos;ve been painting miniatures as my full time job
-                &ldquo;professionally&rdquo; for over a decade!
+                for over a decade!
               </p>
             </div>
             <div className="site-card">
@@ -92,50 +108,50 @@ export default function Home() {
           </div>
         </section>
 
-      {/* Featured categories */}
-      <section className="mb-12">
-        <SectionHeader
-          title="Featured Categories"
-          description="Jump into the gallery by theme."
-        />
+        {/* Featured categories */}
+        <section className="mb-12">
+          <SectionHeader
+            align="center"
+            title="Featured Categories"
+            description="Jump into the gallery by theme."
+            className="mx-auto mb-4 max-w-240"
+          />
 
-        <div className="gallery-categories-grid">
-          {categories.map((category, index) => (
-            <GalleryCategoryCardCycler
-              key={category.slug}
-              href={`/gallery/${category.slug}`}
-              title={category.title}
-              titleAs="h3"
-              meta={`${category.imageCount} images`}
-              initialImageSrc={
-                category.coverImage
-                  ? `/images/gallery/${category.slug}/${category.coverImage}`
-                  : null
-              }
-              candidateImageSrcs={category.coverPool.map(
-                (filename) => `/images/gallery/${category.slug}/${filename}`
-              )}
-              cardIndex={index}
-            />
-          ))}
-        </div>
-      </section>
+          <div className="gallery-categories-grid">
+            {categories.map((category, index) => (
+              <GalleryCategoryCardCycler
+                key={category.slug}
+                href={`/gallery/${category.slug}`}
+                title={category.title}
+                titleAs="h3"
+                meta={`${category.imageCount} images`}
+                initialImageSrc={
+                  category.coverImage
+                    ? `/images/gallery/${category.slug}/${category.coverImage}`
+                    : null
+                }
+                candidateImageSrcs={category.coverPool.map(
+                  (filename) => `/images/gallery/${category.slug}/${filename}`
+                )}
+                cardIndex={index}
+              />
+            ))}
+          </div>
+        </section>
 
         {/* Contact CTA footer */}
         <section className="mb-12">
-          <div className="site-card bg-warm-accent/7">
-            <h2 className="type-section-title mb-2">Ready to start a project?</h2>
-            <p className="type-body mb-4 max-w-2xl">
-              Tell me what you&apos;re looking for, and I&apos;ll get back to you
-              with next steps and a quote.
-            </p>
-            <div className="flex flex-wrap gap-2">
+          <div className="site-card bg-warm-accent/7 text-center">
+            <h2 className="type-section-title mb-3">
+              Interested in a commission?
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2">
               <Button asChild size="lg">
                 <Link href="/commissions#contact">
                   Tell me about your project
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild size="lg">
                 <Link href="/commissions">Commission Info</Link>
               </Button>
             </div>

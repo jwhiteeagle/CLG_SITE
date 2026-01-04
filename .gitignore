@@ -46,9 +46,3 @@ PROJECT_CONTEXT.md
 #brand kit stuff
 /brand_kit_clg
 *.code-workspace
-
-
-#gallery stuff
-/public/images/gallery
-/public/images/about
-/public/images/ 

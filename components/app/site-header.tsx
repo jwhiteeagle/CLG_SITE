@@ -8,7 +8,7 @@ const navLinks = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/about', label: 'About' },
   { href: '/commissions', label: 'Commissions' },
-  { href: '/ebay-store', label: 'eBay Store' },
+  { href: '/links', label: 'Links' },
   { href: '/paintfinity', label: 'Paintfinity' },
 ];
 

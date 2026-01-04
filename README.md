@@ -45,7 +45,7 @@ clg_site/
       gallery/[category]/page.tsx # /gallery/<category>
       about/page.tsx              # /about
       commissions/page.tsx        # /commissions
-      ebay-store/page.tsx         # /ebay-store
+      links/page.tsx              # /links
       paintfinity/page.tsx        # /paintfinity
 ```
 

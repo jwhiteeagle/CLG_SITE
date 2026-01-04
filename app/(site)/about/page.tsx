@@ -6,7 +6,6 @@ import { GalleryLightboxGrid, type LightboxImage } from '@/components/app/galler
 
 export default function AboutPage() {
   const images = listPublicImages('images/about');
-  const aboutMeImages = listPublicImages('images/aboutme');
   const aboutTopRightImages = listPublicImages('images/abouttopright');
   const leftGallery: LightboxImage[] = images.map((image) => ({
     src: `/images/about/${image}`,
@@ -16,13 +15,9 @@ export default function AboutPage() {
     src: `/images/abouttopright/${image}`,
     alt: 'About photo',
   }));
-  const aboutMeGallery: LightboxImage[] = aboutMeImages.map((image) => ({
-    src: `/images/aboutme/${image}`,
-    alt: 'About me photo',
-  }));
 
   const aboutTextLeft = (
-    <TextCard withContainer={false} constrainWidth={false}>
+    <TextCard withContainer={false} constrainWidth={false} align="left">
       <p>
         I&apos;ve been painting miniatures full time &ldquo;professionally&rdquo; now for over a
         decade, running Chief Live Gaming as an in home commission studio. I am 35 years old.
@@ -39,8 +34,55 @@ export default function AboutPage() {
     </TextCard>
   );
 
+  const otherInterestsCard = (
+    <TextCard withContainer={false} constrainWidth={false} align="left">
+      <div className="space-y-3">
+        <h3 className="text-foreground text-xl font-semibold tracking-tight">
+          Other Interests
+        </h3>
+        <p>
+          I love learning. I am always obsessively studying new things. I am a self taught artist
+          and have learned most of what I know about miniature painting through books, videos,
+          and practice. I am fascinated by a wide variety of subjects, and I love to dive deep
+          into new hobbies and interests.
+        </p>
+        <p>
+          A few other things I&apos;m into outside of miniature painting:
+        </p>
+        <ul className="list-disc space-y-3 pl-5">
+          <li>
+            <span className="text-foreground font-medium">Woodworking</span>
+          </li>
+          <li>
+            <span className="text-foreground font-medium">Painting, Sketching, pretty much any art medium</span>
+          </li>
+          <li>
+            <span className="text-foreground font-medium">Coding / Development</span>
+            <ul className="mt-1 list-[circle] space-y-1 pl-5">
+              <li>I built this site!</li>
+            </ul>
+          </li>
+          <li>
+            <span className="text-foreground font-medium">Games</span>
+            <ul className="mt-1 list-[circle] space-y-1 pl-5">
+              <li>Video Games!</li>
+              <li>Board Games!</li>
+              <li>Dungeons and Dragons</li>
+            </ul>
+          </li>
+          <li>
+            <span className="text-foreground font-medium">While Painting</span>
+            <ul className="mt-1 list-[circle] space-y-1 pl-5">
+              <li>Audiobooks/Podcasts are my go to!</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </TextCard>
+  );
+
   const aboutTextRight = (
-    <TextCard withContainer={false} constrainWidth={false}>
+    <TextCard withContainer={false} constrainWidth={false} align="left">
       <p>
         At the time, I was streaming video games on Twitch as a hobby and making gaming content
         on YouTube. I&apos;m Native American, and I have always used &ldquo;Chief&rdquo; as my online handle.
@@ -80,6 +122,8 @@ export default function AboutPage() {
                 />
               </section>
             ) : null}
+
+            {otherInterestsCard}
           </div>
 
           <div className="space-y-10">
@@ -98,19 +142,6 @@ export default function AboutPage() {
             </section>
 
             {aboutTextRight}
-
-            <section>
-              {aboutMeGallery.length > 0 ? (
-                <GalleryLightboxGrid
-                  images={aboutMeGallery}
-                  gridClassName="grid grid-cols-2 gap-5"
-                />
-              ) : (
-                <div className="type-body-sm text-center">
-                  No images found in <code>/public/images/aboutme</code> yet.
-                </div>
-              )}
-            </section>
 
             <BmacQrBlock />
           </div>
