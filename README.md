@@ -20,6 +20,13 @@ Deployed on lithiumhosting (shared hosting due to build size from images)
 
 ---
 
+## Static export (shared hosting)
+
+- Build: `npm run build`
+- Output: `out/` (upload this folder’s contents to your hosting web root)
+
+---
+
 ## Design Practices
 
 ### Frontend Goal: Develop reusable sections to keep route pages lightweight

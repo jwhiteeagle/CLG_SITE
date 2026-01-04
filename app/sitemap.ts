@@ -4,6 +4,8 @@ import { listCategorySlugs } from '@/lib/gallery';
 
 const SITE_URL = 'https://www.chieflivegaming.com';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const categoryEntries = listCategorySlugs().map((category) => ({
