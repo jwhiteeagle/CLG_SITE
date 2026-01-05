@@ -1,8 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
-4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
-5:"$Sreact.suspense"
-7:I[27201,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"IconMark"]
-0:{"buildId":"nmKSQp5LjHBRx-oP3BQ99","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}
-3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-6:[["$","title","0",{"children":"Big Stuff | Gallery"}],["$","meta","1",{"name":"description","content":"Big Stuff gallery: I have had the privilege of painting some really large kits over the years. Working on the big Forgeworld resin kits is a totally different set of challenges. Each build is a truly unique case of problem solving to ensure they are sturdy and durable. I love getting to use my engineering brain and woodworking skillset to assemble these models and create safe storage or transportation methods for them."}],["$","link","2",{"rel":"icon","href":"/icon.png?icon.c4f11c5f.png","sizes":"1024x1024","type":"image/png"}],["$","link","3",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.c4f11c5f.png","sizes":"1024x1024","type":"image/png"}],["$","$L7","4",{}]]
