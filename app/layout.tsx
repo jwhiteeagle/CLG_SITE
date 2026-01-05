@@ -22,6 +22,17 @@ const orbitron = Orbitron({
 export const metadata: Metadata = {
   title: 'Chief Live Gaming',
   description: 'Commission miniature painting & hobby services',
+  metadataBase: new URL('https://www.chieflivegaming.com'),
+  openGraph: {
+    title: 'Chief Live Gaming',
+    description: 'Commission miniature painting & hobby services',
+    url: 'https://www.chieflivegaming.com',
+    siteName: 'Chief Live Gaming',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export default function RootLayout({

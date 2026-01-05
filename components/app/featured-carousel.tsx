@@ -24,15 +24,40 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const preloadedSrcsRef = React.useRef<Set<string>>(new Set());
 
   React.useEffect(() => {
     if (!api) return;
 
     const emblaApi = api;
+    const totalSlides = images.length;
+    const preloadCount = 3;
+
+    function preloadNearbySlides(selectedIndex: number) {
+      if (typeof window === 'undefined') return;
+      if (!totalSlides) return;
+
+      const targets: number[] = [];
+      for (let offset = 1; offset <= preloadCount; offset += 1) {
+        targets.push((selectedIndex + offset) % totalSlides);
+      }
+
+      for (const index of targets) {
+        const filename = images[index];
+        if (!filename) continue;
+        const src = `/images/featured/${filename}`;
+        if (preloadedSrcsRef.current.has(src)) continue;
+        preloadedSrcsRef.current.add(src);
+        const img = new window.Image();
+        img.decoding = 'async';
+        img.src = src;
+      }
+    }
 
     function handleSelect() {
       setCanScrollPrev(emblaApi.canScrollPrev());
       setCanScrollNext(emblaApi.canScrollNext());
+      preloadNearbySlides(emblaApi.selectedScrollSnap());
     }
 
     function handleAutoplayPlay() {
@@ -57,7 +82,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
       emblaApi.off('autoplay:play', handleAutoplayPlay);
       emblaApi.off('autoplay:stop', handleAutoplayStop);
     };
-  }, [api]);
+  }, [api, images]);
 
   function handlePrev() {
     api?.scrollPrev();
@@ -107,7 +132,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
                   fill
                   sizes="(min-width: 1024px) 1024px, 100vw"
                   className="object-scale-down object-center"
-                  priority={index === 0}
+                  priority={index < 2}
                 />
               </div>
             </CarouselItem>

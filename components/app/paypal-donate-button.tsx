@@ -36,13 +36,7 @@ export function PayPalDonateButton({
         </span>
       </button>
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        alt=""
-        src="https://www.paypal.com/en_US/i/scr/pixel.gif"
-        width="1"
-        height="1"
-      />
+
     </form>
   );
 }
