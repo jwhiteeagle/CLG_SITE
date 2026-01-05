@@ -33,6 +33,7 @@ function GalleryLightbox({
     null
   );
   const lastSwipeAtRef = React.useRef<number>(0);
+  const [imageError, setImageError] = React.useState(false);
 
   const current = images[index];
 
@@ -47,6 +48,11 @@ function GalleryLightbox({
       lastActiveElementRef.current?.focus?.();
     };
   }, []);
+
+  React.useEffect(() => {
+    // Reset error state when image changes
+    setImageError(false);
+  }, [index]);
 
   React.useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -124,7 +130,7 @@ function GalleryLightbox({
               else onPrev();
             }}
           >
-            {current ? (
+            {current && !imageError ? (
               <Image
                 src={current.src}
                 alt={current.alt}
@@ -132,7 +138,16 @@ function GalleryLightbox({
                 sizes="(min-width: 1024px) 1024px, 100vw"
                 className="object-contain"
                 priority
+                unoptimized={true}
+                onError={() => setImageError(true)}
               />
+            ) : imageError ? (
+              <div className="flex h-full items-center justify-center text-white/60">
+                <div className="text-center">
+                  <p className="text-lg font-medium">Image not available</p>
+                  <p className="mt-1 text-sm">This image could not be loaded</p>
+                </div>
+              </div>
             ) : null}
           </div>
 
@@ -189,10 +204,21 @@ export function GalleryLightboxGrid({
   className?: string;
 }) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
+  const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
 
-  const isOpen = openIndex !== null && images.length > 0;
+  // Filter out invalid images
+  const validImages = React.useMemo(() => {
+    return images.filter((img) => {
+      if (!img || !img.src || typeof img.src !== 'string') return false;
+      if (img.src.trim() === '') return false;
+      if (failedImages.has(img.src)) return false;
+      return true;
+    });
+  }, [images, failedImages]);
+
+  const isOpen = openIndex !== null && validImages.length > 0;
   const currentIndex =
-    openIndex === null ? 0 : ((openIndex % images.length) + images.length) % images.length;
+    openIndex === null ? 0 : ((openIndex % validImages.length) + validImages.length) % validImages.length;
 
   function handleClose() {
     setOpenIndex(null);
@@ -206,16 +232,28 @@ export function GalleryLightboxGrid({
     setOpenIndex((prev) => (prev === null ? 0 : prev + 1));
   }
 
+  const handleImageError = React.useCallback((src: string) => {
+    setFailedImages((prev) => new Set(prev).add(src));
+  }, []);
+
+  if (validImages.length === 0) {
+    return (
+      <div className="text-center text-muted-foreground py-12">
+        No images available in this gallery.
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={cn(gridClassName ?? 'gallery-images-grid', className)}>
-        {images.map((image, index) => (
+        {validImages.map((image, index) => (
           <button
-            key={image.src}
+            key={`${image.src}-${index}`}
             type="button"
             className={cn('gallery-card w-full text-left', 'focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none')}
             onClick={() => setOpenIndex(index)}
-            aria-label={`Open image ${index + 1} of ${images.length}`}
+            aria-label={`Open image ${index + 1} of ${validImages.length}`}
           >
             <div className="gallery-card-media gallery-card-media--image">
               <Image
@@ -224,6 +262,8 @@ export function GalleryLightboxGrid({
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 className="gallery-card-image"
+                unoptimized={true}
+                onError={() => handleImageError(image.src)}
               />
             </div>
           </button>
@@ -232,7 +272,7 @@ export function GalleryLightboxGrid({
 
       {isOpen ? (
         <GalleryLightbox
-          images={images}
+          images={validImages}
           index={currentIndex}
           onClose={handleClose}
           onPrev={handlePrev}

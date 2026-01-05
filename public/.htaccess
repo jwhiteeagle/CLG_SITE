@@ -1,10 +1,3 @@
-# ===========================================
-# CLG Site - Apache Configuration
-# ===========================================
-
-# ------------------------------------------
-# Caching - Prevent excessive requests
-# ------------------------------------------
 <IfModule mod_expires.c>
     ExpiresActive On
     
@@ -27,7 +20,6 @@
     ExpiresByType font/woff "access plus 1 year"
 </IfModule>
 
-# Cache-Control headers (fallback/supplement)
 <IfModule mod_headers.c>
     <FilesMatch "\.(webp|jpg|jpeg|png|gif|svg|ico|woff2|woff|css|js)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
@@ -37,23 +29,23 @@
     </FilesMatch>
 </IfModule>
 
-# ------------------------------------------
-# Compression - Reduce bandwidth
-# ------------------------------------------
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-# ------------------------------------------
-# Security Headers
-# ------------------------------------------
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# ------------------------------------------
-# Error Documents (optional)
-# ------------------------------------------
 ErrorDocument 404 /404.html
+
+# Add trailing slash redirect
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !(.*)/$
+    RewriteRule ^(.*)$ /$1/ [L,R=301]
+</IfModule>
+

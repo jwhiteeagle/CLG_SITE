@@ -40,13 +40,20 @@ export function GalleryCategoryCardCycler({
 }: GalleryCategoryCardCyclerProps) {
   const { reduceMotion } = useReduceMotionPreference();
   const alt = imageAlt ?? title;
-  const pool = React.useMemo(
-    () =>
-      candidateImageSrcs.filter(
-        (src) => src && src !== initialImageSrc
-      ),
-    [candidateImageSrcs, initialImageSrc]
-  );
+  
+  // Track failed images to prevent cycling back to them
+  const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
+  const [currentImageError, setCurrentImageError] = React.useState(false);
+  
+  // Filter out invalid and failed images
+  const pool = React.useMemo(() => {
+    return candidateImageSrcs.filter((src) => {
+      if (!src || typeof src !== 'string' || src.trim() === '') return false;
+      if (src === initialImageSrc) return false;
+      if (failedImages.has(src)) return false;
+      return true;
+    });
+  }, [candidateImageSrcs, initialImageSrc, failedImages]);
 
   const [currentSrc, setCurrentSrc] = React.useState<string | null>(
     initialImageSrc ?? null
@@ -67,15 +74,23 @@ export function GalleryCategoryCardCycler({
     poolRef.current = pool;
   }, [pool]);
 
+  // Reset image error when current image changes
+  React.useEffect(() => {
+    setCurrentImageError(false);
+  }, [currentSrc]);
+
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
     if (!currentSrcRef.current || poolRef.current.length === 0) return;
     if (reduceMotion) return;
 
-    function pickNext(): string {
+    function pickNext(): string | null {
       const currentPool = poolRef.current;
+      if (currentPool.length === 0) return null;
+      
       const current = currentSrcRef.current;
       if (currentPool.length === 1) return currentPool[0]!;
+      
       let next = currentPool[Math.floor(Math.random() * currentPool.length)]!;
       for (
         let attempts = 0;
@@ -91,7 +106,7 @@ export function GalleryCategoryCardCycler({
 
     function tick() {
       const next = pickNext();
-      if (next === currentSrcRef.current) return;
+      if (!next || next === currentSrcRef.current) return;
 
       const preload = new window.Image();
       preload.src = next;
@@ -113,11 +128,19 @@ export function GalleryCategoryCardCycler({
         }, 200);
       };
 
+      const handleError = () => {
+        if (cancelled) return;
+        // Track the failed image and don't cycle to it
+        setFailedImages((prev) => new Set(prev).add(next));
+      };
+
       if (typeof preload.decode === 'function') {
-        preload.decode().then(commit).catch(commit);
+        preload.decode()
+          .then(commit)
+          .catch(handleError);
       } else {
         preload.onload = commit;
-        preload.onerror = commit;
+        preload.onerror = handleError;
       }
     }
 
@@ -142,7 +165,14 @@ export function GalleryCategoryCardCycler({
     };
   }, [cycleMs, pool.length, staggerMs, cardIndex, initialImageSrc, reduceMotion]);
 
-  const showPlaceholder = !currentSrc;
+  const handleImageError = React.useCallback((src: string) => {
+    setFailedImages((prev) => new Set(prev).add(src));
+    if (src === currentSrc) {
+      setCurrentImageError(true);
+    }
+  }, [currentSrc]);
+
+  const showPlaceholder = !currentSrc || currentImageError;
 
   return (
     <Link
@@ -168,8 +198,10 @@ export function GalleryCategoryCardCycler({
                   ? 'opacity-0 -translate-x-2'
                   : 'opacity-100 translate-x-0'
               )}
+              unoptimized={true}
+              onError={() => handleImageError(String(currentSrc))}
             />
-            {incomingSrc ? (
+            {incomingSrc && !failedImages.has(incomingSrc) ? (
               <Image
                 key={incomingSrc}
                 src={incomingSrc}
@@ -182,6 +214,8 @@ export function GalleryCategoryCardCycler({
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 translate-x-2'
                 )}
+                unoptimized={true}
+                onError={() => handleImageError(incomingSrc)}
               />
             ) : null}
           </>

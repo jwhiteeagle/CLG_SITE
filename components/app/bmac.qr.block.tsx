@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import { BuyMeACoffeeButton } from '@/components/app/buy-me-a-coffee-button';
-import { PayPalDonateButton } from '@/components/app/paypal-donate-button';
 import { SectionHeader } from '@/components/app/section-header';
 import { cn } from '@/lib/utils';
 
@@ -38,8 +37,7 @@ export function BmacQrBlock({
             />
           </div>
 
-          <BuyMeACoffeeButton />
-          <PayPalDonateButton />
+          <BuyMeACoffeeButton />          
         </div>
       </div>
     </section>

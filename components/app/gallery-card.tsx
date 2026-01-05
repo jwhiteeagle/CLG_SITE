@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -26,18 +27,20 @@ export function GalleryCategoryCard({
   className,
   placeholder,
 }: GalleryCategoryCardProps) {
+  const [imageError, setImageError] = React.useState(false);
   const alt = imageAlt ?? title;
 
   return (
     <Link href={href} className={cn('gallery-card gallery-category-card', className)}>
       <div className="gallery-card-media gallery-card-media--category">
-        {imageSrc ? (
+        {imageSrc && !imageError ? (
           <Image
             src={imageSrc}
             alt={alt}
             fill
             sizes={sizes}
             className="gallery-card-image"
+            onError={() => setImageError(true)}
           />
         ) : (
           <div className="gallery-card-placeholder">
@@ -74,6 +77,7 @@ export function GalleryImageCard({
   target = '_blank',
   rel = 'noreferrer',
 }: GalleryImageCardProps) {
+  const [imageError, setImageError] = React.useState(false);
   const resolvedHref = href ?? imageSrc;
 
   return (
@@ -84,15 +88,21 @@ export function GalleryImageCard({
       className={cn('gallery-card', className)}
     >
       <div className="gallery-card-media gallery-card-media--image">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          sizes={sizes}
-          className="gallery-card-image"
-        />
+        {!imageError ? (
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            sizes={sizes}
+            className="gallery-card-image"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center bg-black/10 text-muted-foreground">
+            Image unavailable
+          </div>
+        )}
       </div>
     </a>
   );
 }
-

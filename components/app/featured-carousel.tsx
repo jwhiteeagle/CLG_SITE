@@ -25,12 +25,25 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
   const preloadedSrcsRef = React.useRef<Set<string>>(new Set());
+  const [failedImages, setFailedImages] = React.useState<Set<string>>(
+    new Set()
+  );
+
+  // Filter out any invalid images
+  const validImages = React.useMemo(() => {
+    return images.filter((img) => {
+      // Basic validation: string exists, not empty, has extension
+      if (!img || typeof img !== 'string' || img.trim() === '') return false;
+      if (!img.includes('.')) return false;
+      return true;
+    });
+  }, [images]);
 
   React.useEffect(() => {
     if (!api) return;
 
     const emblaApi = api;
-    const totalSlides = images.length;
+    const totalSlides = validImages.length;
     const preloadCount = 3;
 
     function preloadNearbySlides(selectedIndex: number) {
@@ -39,17 +52,33 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
 
       const targets: number[] = [];
       for (let offset = 1; offset <= preloadCount; offset += 1) {
-        targets.push((selectedIndex + offset) % totalSlides);
+        const targetIndex = (selectedIndex + offset) % totalSlides;
+        // Additional safety check
+        if (targetIndex >= 0 && targetIndex < totalSlides) {
+          targets.push(targetIndex);
+        }
       }
 
       for (const index of targets) {
-        const filename = images[index];
+        const filename = validImages[index];
         if (!filename) continue;
         const src = `/images/featured/${filename}`;
-        if (preloadedSrcsRef.current.has(src)) continue;
+        
+        // Skip if already preloaded or previously failed
+        if (preloadedSrcsRef.current.has(src) || failedImages.has(filename)) {
+          continue;
+        }
+        
         preloadedSrcsRef.current.add(src);
         const img = new window.Image();
         img.decoding = 'async';
+        
+        // Handle preload errors silently - don't let them break the carousel
+        img.onerror = () => {
+          setFailedImages((prev) => new Set(prev).add(filename));
+          preloadedSrcsRef.current.delete(src);
+        };
+        
         img.src = src;
       }
     }
@@ -82,7 +111,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
       emblaApi.off('autoplay:play', handleAutoplayPlay);
       emblaApi.off('autoplay:stop', handleAutoplayStop);
     };
-  }, [api, images]);
+  }, [api, validImages, failedImages]);
 
   function handlePrev() {
     api?.scrollPrev();
@@ -102,7 +131,13 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
     }
   }
 
-  if (images.length === 0) {
+  // Handle individual image errors
+  const handleImageError = React.useCallback((filename: string) => {
+    setFailedImages((prev) => new Set(prev).add(filename));
+  }, []);
+
+  // Don't render if no valid images
+  if (validImages.length === 0) {
     return null;
   }
 
@@ -115,8 +150,8 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
         aria-label="Featured work"
       >
         <CarouselContent>
-          {images.map((image, index) => (
-            <CarouselItem key={image}>
+          {validImages.map((image, index) => (
+            <CarouselItem key={`${image}-${index}`}>
               <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/10 bg-black/10 dark:border-white/5 dark:bg-black/30">
                 {/* Gradient overlay for iOS-style depth */}
                 <div
@@ -133,6 +168,8 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
                   sizes="(min-width: 1024px) 1024px, 100vw"
                   className="object-scale-down object-center"
                   priority={index < 2}
+                  onError={() => handleImageError(image)}
+                  unoptimized={true}
                 />
               </div>
             </CarouselItem>

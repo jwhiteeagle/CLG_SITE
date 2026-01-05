@@ -4,8 +4,6 @@ Static website for [chieflivegaming.com](https://www.chieflivegaming.com).
 
 Commission miniature painting business landing page, portfolio, organized image galleries, links and info for other projects Jake is working on.
 
-Deployed on lithiumhosting (shared hosting due to build size from images)
-
 ---
 
 ## Tech Stack
@@ -17,13 +15,6 @@ Deployed on lithiumhosting (shared hosting due to build size from images)
 | Styling         | Tailwind CSS v4            |
 | Components      | shadcn/radix               |
 | Package Manager | npm                        |
-
----
-
-## Static export (shared hosting)
-
-- Build: `npm run build`
-- Output: `out/` (upload this folder’s contents to your hosting web root)
 
 ---
 
@@ -56,8 +47,19 @@ clg_site/
       paintfinity/page.tsx        # /paintfinity
 ```
 
+---
+
 ## Gallery Stuffs
 
 - **Category discovery:** folders under `/public/images/gallery/<category>/` drive available category routes.
 - **Index cards (`/gallery`):** initial cover = newest image. then optional client-side cover cycling with a per-user “Gallery motion effect” toggle.
 - **Category pages (`/gallery/[category]`):** click an image to open an in-page lightbox (prev/next + close; supports keyboard + mobile swipe).
+
+---
+
+## Misc Last Minute Build v1
+
+- Paypal had a fun tracking pixel artifact for their dono button impressions.
+
+- Image Heavy components are kinda scary. Preloaded 3, .htaccess should handle caching headers. 
+- Added some error boundaries and failed image tracking with fallbacks to be extra paranoid. This should avoid 404 spam (maybe? idk)

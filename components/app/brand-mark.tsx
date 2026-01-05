@@ -1,3 +1,6 @@
+'use client';
+
+import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,19 +11,28 @@ type BrandMarkProps = {
 };
 
 export function BrandMark({ className }: BrandMarkProps) {
+  const [logoError, setLogoError] = React.useState(false);
+
   return (
     <div className={cn('flex items-center gap-3', className)}>
       <Link
         href="/"
         className="surface-clickable flex h-[72px] w-[72px] items-center justify-center rounded-lg hover:-translate-y-0.5"
       >
-        <Image
-          src="/images/brand/CLG 2026 Brush Logo.webp"
-          alt="Chief Live Gaming"
-          width={70}
-          height={70}
-          className="h-[70px] w-[70px]"
-        />
+        {!logoError ? (
+          <Image
+            src="/images/brand/CLG 2026 Brush Logo.webp"
+            alt="Chief Live Gaming"
+            width={70}
+            height={70}
+            className="h-[70px] w-[70px]"
+            onError={() => setLogoError(true)}
+          />
+        ) : (
+          <div className="flex h-[70px] w-[70px] items-center justify-center rounded-lg bg-primary/10 text-primary font-orbitron font-bold text-2xl">
+            CLG
+          </div>
+        )}
       </Link>
 
       <Link
