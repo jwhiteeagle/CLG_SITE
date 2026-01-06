@@ -22,7 +22,9 @@ export function SiteHeader() {
         <nav className="flex items-center gap-1 overflow-x-auto sm:gap-2">
           {navLinks.map((link) => (
             <Button key={link.href} asChild variant="nav" size="nav">
-              <Link href={link.href}>{link.label}</Link>
+              <Link href={link.href} prefetch={false}>
+                {link.label}
+              </Link>
             </Button>
           ))}
           <ThemeToggle />

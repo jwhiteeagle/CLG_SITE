@@ -18,6 +18,7 @@ export function BrandMark({ className }: BrandMarkProps) {
     <div className={cn('flex items-center gap-3', className)}>
       <Link
         href="/"
+        prefetch={false}
         className="surface-clickable flex h-[72px] w-[72px] items-center justify-center rounded-lg hover:-translate-y-0.5"
       >
         {!logoError ? (
@@ -38,6 +39,7 @@ export function BrandMark({ className }: BrandMarkProps) {
 
       <Link
         href="/"
+        prefetch={false}
         className="hidden flex-col transition-opacity hover:opacity-80 sm:flex"
       >
         <span className="font-orbitron text-2xl leading-tight font-extrabold tracking-wide">

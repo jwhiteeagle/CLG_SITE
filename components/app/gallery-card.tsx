@@ -31,7 +31,11 @@ export function GalleryCategoryCard({
   const alt = imageAlt ?? title;
 
   return (
-    <Link href={href} className={cn('gallery-card gallery-category-card', className)}>
+    <Link
+      href={href}
+      prefetch={false}
+      className={cn('gallery-card gallery-category-card', className)}
+    >
       <div className="gallery-card-media gallery-card-media--category">
         {imageSrc && !imageError ? (
           <Image

@@ -69,16 +69,24 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               <Button asChild size="lg">
-                <Link href="/commissions#contact">Start a Commission</Link>
+                <Link href="/commissions#contact" prefetch={false}>
+                  Start a Commission
+                </Link>
               </Button>
               <Button asChild size="lg">
-                <Link href="/gallery">View Gallery</Link>
+                <Link href="/gallery" prefetch={false}>
+                  View Gallery
+                </Link>
               </Button>
               <Button asChild size="lg">
-                <Link href="/about">About</Link>
+                <Link href="/about" prefetch={false}>
+                  About
+                </Link>
               </Button>
               <Button asChild size="lg">
-                <Link href="/links">Links</Link>
+                <Link href="/links" prefetch={false}>
+                  Links
+                </Link>
               </Button>
             </div>
           </CtaCard>
@@ -120,7 +128,7 @@ export default function Home() {
           />
 
           <div className="gallery-categories-grid">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <GalleryCategoryCardCycler
                 key={category.slug}
                 href={`/gallery/${category.slug}`}
@@ -145,12 +153,14 @@ export default function Home() {
             </h2>
             <div className="flex flex-wrap justify-center gap-2">
               <Button asChild size="lg">
-                <Link href="/commissions#contact">
+                <Link href="/commissions#contact" prefetch={false}>
                   Tell me about your project
                 </Link>
               </Button>
               <Button asChild size="lg">
-                <Link href="/commissions">Commission Info</Link>
+                <Link href="/commissions" prefetch={false}>
+                  Commission Info
+                </Link>
               </Button>
             </div>
           </div>

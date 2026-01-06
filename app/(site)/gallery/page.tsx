@@ -1,7 +1,6 @@
 import { listCategories } from '@/lib/gallery';
 import { PageTitleCard } from '@/components/app/page-title-card';
 import { GalleryCategoryCardCycler } from '@/components/app/gallery-category-card-cycler';
-import { GalleryReduceMotionToggle } from '@/components/app/gallery-reduce-motion-toggle';
 
 export default function GalleryPage() {
   // Reduced from 24 to 8 to prevent rate limiting
@@ -12,7 +11,6 @@ export default function GalleryPage() {
       <div className="mb-8">
         <PageTitleCard
           title="Gallery"
-          actions={<GalleryReduceMotionToggle />}
           description={
             <>
               <p>
@@ -35,7 +33,7 @@ export default function GalleryPage() {
       </div>
 
       <div className="gallery-categories-grid">
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <GalleryCategoryCardCycler
             key={category.slug}
             href={`/gallery/${category.slug}`}

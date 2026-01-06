@@ -243,6 +243,7 @@ export function GalleryLightboxGrid({
   }, []);
 
   const safeInitialCount = React.useMemo(() => {
+    if (initialCount === Infinity) return Infinity;
     if (!Number.isFinite(initialCount) || initialCount <= 0) return 1;
     return Math.floor(initialCount);
   }, [initialCount]);

@@ -52,7 +52,7 @@ clg_site/
 ## Gallery Stuffs
 
 - **Category discovery:** folders under `/public/images/gallery/<category>/` drive available category routes.
-- **Index cards (`/gallery`):** initial cover = newest image. then optional client-side cover cycling with a per-user “Gallery motion effect” toggle.
+- **Index cards (`/gallery`):** static cover image per category (newest image by numeric-prefix sorting).
 - **Category pages (`/gallery/[category]`):** click an image to open an in-page lightbox (prev/next + close; supports keyboard + mobile swipe).
 
 ---

@@ -14,24 +14,28 @@ export function SiteFooter() {
         <div className="flex flex-wrap justify-center gap-4 text-sm">
           <Link
             href="/commissions"
+            prefetch={false}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             Commissions
           </Link>
           <Link
             href="/about"
+            prefetch={false}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             About
           </Link>
           <Link
             href="/links"
+            prefetch={false}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             Links
           </Link>
           <Link
             href="/paintfinity"
+            prefetch={false}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             Paintfinity

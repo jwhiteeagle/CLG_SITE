@@ -105,8 +105,8 @@ export default function CommissionsPage() {
                   <a
                     href={buildMailto({
                       subject: 'Commission request',
-                      body: COMMISSION_TEMPLATE,
                     })}
+                    aria-label={`Email ${CONTACT_EMAIL} about a commission`}
                   >
                     Email Me
                   </a>

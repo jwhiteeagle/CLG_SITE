@@ -79,6 +79,7 @@ export default function LinksPage() {
             >
               <Link
                 href="/paintfinity"
+                prefetch={false}
                 className="text-primary inline-flex text-sm font-medium transition-colors hover:opacity-90"
               >
                 View the Paintfinity page
