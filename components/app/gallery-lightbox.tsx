@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { withBasePath } from '@/lib/base-path';
 import { cn } from '@/lib/utils';
 
 export type LightboxImage = {
@@ -36,6 +37,7 @@ function GalleryLightbox({
   const [imageError, setImageError] = React.useState(false);
 
   const current = images[index];
+  const currentSrc = current?.src ? withBasePath(current.src) : null;
 
   React.useEffect(() => {
     lastActiveElementRef.current =
@@ -132,7 +134,7 @@ function GalleryLightbox({
           >
             {current && !imageError ? (
               <Image
-                src={current.src}
+                src={currentSrc ?? current.src}
                 alt={current.alt}
                 fill
                 sizes="(min-width: 1024px) 1024px, 100vw"
@@ -257,7 +259,7 @@ export function GalleryLightboxGrid({
           >
             <div className="gallery-card-media gallery-card-media--image">
               <Image
-                src={image.src}
+                src={withBasePath(image.src)}
                 alt={image.alt}
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

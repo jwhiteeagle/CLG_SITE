@@ -4,7 +4,8 @@ import { GalleryCategoryCardCycler } from '@/components/app/gallery-category-car
 import { GalleryReduceMotionToggle } from '@/components/app/gallery-reduce-motion-toggle';
 
 export default function GalleryPage() {
-  const categories = listCategoriesWithCoverPool({ poolSize: 24 });
+  // Reduced from 24 to 8 to prevent rate limiting
+  const categories = listCategoriesWithCoverPool({ poolSize: 8 });
 
   return (
     <div className="site-section">

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
+import { withBasePath } from '@/lib/base-path';
 import { useReduceMotionPreference } from '@/components/app/motion-preference';
 
 type GalleryCategoryCardCyclerProps = {
@@ -40,6 +41,8 @@ export function GalleryCategoryCardCycler({
 }: GalleryCategoryCardCyclerProps) {
   const { reduceMotion } = useReduceMotionPreference();
   const alt = imageAlt ?? title;
+  const containerRef = React.useRef<HTMLAnchorElement>(null);
+  const [isVisible, setIsVisible] = React.useState(false);
   
   // Track failed images to prevent cycling back to them
   const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
@@ -79,10 +82,35 @@ export function GalleryCategoryCardCycler({
     setCurrentImageError(false);
   }, [currentSrc]);
 
+  // Intersection Observer - only start cycling when visible
+  React.useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting);
+        });
+      },
+      {
+        rootMargin: '50px', // Start a bit before it comes into view
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
     if (!currentSrcRef.current || poolRef.current.length === 0) return;
     if (reduceMotion) return;
+    if (!isVisible) return; // Only cycle when visible
 
     function pickNext(): string | null {
       const currentPool = poolRef.current;
@@ -109,7 +137,7 @@ export function GalleryCategoryCardCycler({
       if (!next || next === currentSrcRef.current) return;
 
       const preload = new window.Image();
-      preload.src = next;
+      preload.src = withBasePath(next);
 
       const commit = () => {
         if (cancelled) return;
@@ -163,7 +191,7 @@ export function GalleryCategoryCardCycler({
         window.clearTimeout(swapTimeoutRef.current);
       }
     };
-  }, [cycleMs, pool.length, staggerMs, cardIndex, initialImageSrc, reduceMotion]);
+  }, [cycleMs, pool.length, staggerMs, cardIndex, initialImageSrc, reduceMotion, isVisible]);
 
   const handleImageError = React.useCallback((src: string) => {
     setFailedImages((prev) => new Set(prev).add(src));
@@ -176,6 +204,7 @@ export function GalleryCategoryCardCycler({
 
   return (
     <Link
+      ref={containerRef}
       href={href}
       className={cn('gallery-card gallery-category-card', className)}
     >
@@ -188,7 +217,7 @@ export function GalleryCategoryCardCycler({
           <>
             <Image
               key={String(currentSrc)}
-              src={String(currentSrc)}
+              src={withBasePath(String(currentSrc))}
               alt={alt}
               fill
               sizes={sizes}
@@ -198,13 +227,13 @@ export function GalleryCategoryCardCycler({
                   ? 'opacity-0 -translate-x-2'
                   : 'opacity-100 translate-x-0'
               )}
-              unoptimized={true}
+              loading="lazy"
               onError={() => handleImageError(String(currentSrc))}
             />
             {incomingSrc && !failedImages.has(incomingSrc) ? (
               <Image
                 key={incomingSrc}
-                src={incomingSrc}
+                src={withBasePath(incomingSrc)}
                 alt={alt}
                 fill
                 sizes={sizes}
@@ -214,7 +243,7 @@ export function GalleryCategoryCardCycler({
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 translate-x-2'
                 )}
-                unoptimized={true}
+                loading="lazy"
                 onError={() => handleImageError(incomingSrc)}
               />
             ) : null}

@@ -5,6 +5,7 @@ import { FeaturedCarousel } from '@/components/app/featured-carousel';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { listCategoriesWithCoverPool } from '@/lib/gallery';
+import { withBasePath } from '@/lib/base-path';
 import { SectionHeader } from '@/components/app/section-header';
 import { CtaCard } from '@/components/app/cta-card';
 import { GalleryCategoryCardCycler } from '@/components/app/gallery-category-card-cycler';
@@ -33,7 +34,8 @@ export default function Home() {
     'studio',
     'kingdom-death-monster',
   ]);
-  const categories = listCategoriesWithCoverPool({ poolSize: 18 }).filter(
+  // Reduced from 18 to 8 to prevent rate limiting
+  const categories = listCategoriesWithCoverPool({ poolSize: 8 }).filter(
     (category) => featuredCategorySlugs.has(category.slug)
   );
 
@@ -51,7 +53,7 @@ export default function Home() {
             <h1 className="sr-only">Miniature Painting Services</h1>
             <div className="mx-auto w-full max-w-lg">
               <Image
-                src="/images/brand/clg-banner-26-1500x400.webp"
+                src={withBasePath('/images/brand/clg-banner-26-1500x400.webp')}
                 alt="Chief Live Gaming banner logo"
                 width={1500}
                 height={400}

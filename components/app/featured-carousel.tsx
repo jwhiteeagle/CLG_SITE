@@ -11,6 +11,7 @@ import {
 import type { CarouselApi } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { Button } from '@/components/ui/button';
+import { withBasePath } from '@/lib/base-path';
 
 type FeaturedCarouselProps = {
   images: string[];
@@ -62,7 +63,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
       for (const index of targets) {
         const filename = validImages[index];
         if (!filename) continue;
-        const src = `/images/featured/${filename}`;
+        const src = withBasePath(`/images/featured/${filename}`);
         
         // Skip if already preloaded or previously failed
         if (preloadedSrcsRef.current.has(src) || failedImages.has(filename)) {
@@ -162,7 +163,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
                   }}
                 />
                 <Image
-                  src={`/images/featured/${image}`}
+                  src={withBasePath(`/images/featured/${image}`)}
                   alt={`Featured work ${index + 1}`}
                   fill
                   sizes="(min-width: 1024px) 1024px, 100vw"

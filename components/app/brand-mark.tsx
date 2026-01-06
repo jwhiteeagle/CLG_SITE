@@ -4,6 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { withBasePath } from '@/lib/base-path';
 import { cn } from '@/lib/utils';
 
 type BrandMarkProps = {
@@ -21,7 +22,7 @@ export function BrandMark({ className }: BrandMarkProps) {
       >
         {!logoError ? (
           <Image
-            src="/images/brand/CLG 2026 Brush Logo.webp"
+            src={withBasePath('/images/brand/clg-26-brush-logo.webp')}
             alt="Chief Live Gaming"
             width={70}
             height={70}

@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import { BuyMeACoffeeButton } from '@/components/app/buy-me-a-coffee-button';
 import { SectionHeader } from '@/components/app/section-header';
+import { withBasePath } from '@/lib/base-path';
 import { cn } from '@/lib/utils';
 
 type BmacQrBlockProps = {
@@ -28,7 +29,7 @@ export function BmacQrBlock({
 
           <div className="bg-background/60 ring-border relative aspect-square w-full max-w-[260px] overflow-hidden rounded-xl ring-1">
             <Image
-              src="/images/brand/BMAC-QR-Code.webp"
+              src={withBasePath('/images/brand/BMAC-QR-Code.webp')}
               alt="Buy Me a Coffee QR code"
               fill
               sizes="260px"
