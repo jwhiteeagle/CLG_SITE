@@ -200,10 +200,14 @@ export function GalleryLightboxGrid({
   images,
   gridClassName,
   className,
+  initialCount = Infinity,
+  pageSize = 48,
 }: {
   images: LightboxImage[];
   gridClassName?: string;
   className?: string;
+  initialCount?: number;
+  pageSize?: number;
 }) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
   const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
@@ -238,6 +242,28 @@ export function GalleryLightboxGrid({
     setFailedImages((prev) => new Set(prev).add(src));
   }, []);
 
+  const safeInitialCount = React.useMemo(() => {
+    if (!Number.isFinite(initialCount) || initialCount <= 0) return 1;
+    return Math.floor(initialCount);
+  }, [initialCount]);
+
+  const safePageSize = React.useMemo(() => {
+    if (!Number.isFinite(pageSize) || pageSize <= 0) return 1;
+    return Math.floor(pageSize);
+  }, [pageSize]);
+
+  const [visibleCount, setVisibleCount] = React.useState(() =>
+    Math.min(validImages.length, safeInitialCount)
+  );
+
+  React.useEffect(() => {
+    setVisibleCount((prev) => {
+      const next = Math.min(prev, validImages.length);
+      if (next <= 0) return Math.min(validImages.length, safeInitialCount);
+      return next;
+    });
+  }, [safeInitialCount, validImages.length]);
+
   if (validImages.length === 0) {
     return (
       <div className="text-center text-muted-foreground py-12">
@@ -246,10 +272,13 @@ export function GalleryLightboxGrid({
     );
   }
 
+  const visibleImages = validImages.slice(0, Math.min(validImages.length, visibleCount));
+  const canLoadMore = visibleImages.length < validImages.length;
+
   return (
     <>
       <div className={cn(gridClassName ?? 'gallery-images-grid', className)}>
-        {validImages.map((image, index) => (
+        {visibleImages.map((image, index) => (
           <button
             key={`${image.src}-${index}`}
             type="button"
@@ -266,11 +295,28 @@ export function GalleryLightboxGrid({
                 className="gallery-card-image"
                 unoptimized={true}
                 onError={() => handleImageError(image.src)}
+                loading="lazy"
               />
             </div>
           </button>
         ))}
       </div>
+
+      {canLoadMore ? (
+        <div className="mt-8 flex justify-center">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() =>
+              setVisibleCount((prev) =>
+                Math.min(validImages.length, Math.max(prev, 0) + safePageSize)
+              )
+            }
+          >
+            Load more
+          </Button>
+        </div>
+      ) : null}
 
       {isOpen ? (
         <GalleryLightbox

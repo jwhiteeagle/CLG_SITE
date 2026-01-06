@@ -71,7 +71,7 @@ export default async function GalleryCategoryPage({
       {images.length === 0 ? (
         <div className="type-body-sm">No images found in this category yet.</div>
       ) : (
-        <GalleryLightboxGrid images={lightboxImages} />
+        <GalleryLightboxGrid images={lightboxImages} initialCount={48} pageSize={48} />
       )}
     </div>
   );

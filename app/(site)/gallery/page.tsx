@@ -1,11 +1,11 @@
-import { listCategoriesWithCoverPool } from '@/lib/gallery';
+import { listCategories } from '@/lib/gallery';
 import { PageTitleCard } from '@/components/app/page-title-card';
 import { GalleryCategoryCardCycler } from '@/components/app/gallery-category-card-cycler';
 import { GalleryReduceMotionToggle } from '@/components/app/gallery-reduce-motion-toggle';
 
 export default function GalleryPage() {
   // Reduced from 24 to 8 to prevent rate limiting
-  const categories = listCategoriesWithCoverPool({ poolSize: 8 });
+  const categories = listCategories();
 
   return (
     <div className="site-section">
@@ -46,10 +46,6 @@ export default function GalleryPage() {
                 ? `/images/gallery/${category.slug}/${category.coverImage}`
                 : null
             }
-            candidateImageSrcs={category.coverPool.map(
-              (filename) => `/images/gallery/${category.slug}/${filename}`
-            )}
-            cardIndex={index}
           />
         ))}
       </div>

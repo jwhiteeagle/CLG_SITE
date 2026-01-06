@@ -25,69 +25,27 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
-  const preloadedSrcsRef = React.useRef<Set<string>>(new Set());
-  const [failedImages, setFailedImages] = React.useState<Set<string>>(
-    new Set()
-  );
+  const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
 
-  // Filter out any invalid images
+  // Filter out any invalid images, and stop trying failed ones.
   const validImages = React.useMemo(() => {
     return images.filter((img) => {
       // Basic validation: string exists, not empty, has extension
       if (!img || typeof img !== 'string' || img.trim() === '') return false;
       if (!img.includes('.')) return false;
+      if (failedImages.has(img)) return false;
       return true;
     });
-  }, [images]);
+  }, [failedImages, images]);
 
   React.useEffect(() => {
     if (!api) return;
 
     const emblaApi = api;
-    const totalSlides = validImages.length;
-    const preloadCount = 3;
-
-    function preloadNearbySlides(selectedIndex: number) {
-      if (typeof window === 'undefined') return;
-      if (!totalSlides) return;
-
-      const targets: number[] = [];
-      for (let offset = 1; offset <= preloadCount; offset += 1) {
-        const targetIndex = (selectedIndex + offset) % totalSlides;
-        // Additional safety check
-        if (targetIndex >= 0 && targetIndex < totalSlides) {
-          targets.push(targetIndex);
-        }
-      }
-
-      for (const index of targets) {
-        const filename = validImages[index];
-        if (!filename) continue;
-        const src = withBasePath(`/images/featured/${filename}`);
-        
-        // Skip if already preloaded or previously failed
-        if (preloadedSrcsRef.current.has(src) || failedImages.has(filename)) {
-          continue;
-        }
-        
-        preloadedSrcsRef.current.add(src);
-        const img = new window.Image();
-        img.decoding = 'async';
-        
-        // Handle preload errors silently - don't let them break the carousel
-        img.onerror = () => {
-          setFailedImages((prev) => new Set(prev).add(filename));
-          preloadedSrcsRef.current.delete(src);
-        };
-        
-        img.src = src;
-      }
-    }
 
     function handleSelect() {
       setCanScrollPrev(emblaApi.canScrollPrev());
       setCanScrollNext(emblaApi.canScrollNext());
-      preloadNearbySlides(emblaApi.selectedScrollSnap());
     }
 
     function handleAutoplayPlay() {
@@ -112,7 +70,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
       emblaApi.off('autoplay:play', handleAutoplayPlay);
       emblaApi.off('autoplay:stop', handleAutoplayStop);
     };
-  }, [api, validImages, failedImages]);
+  }, [api, validImages]);
 
   function handlePrev() {
     api?.scrollPrev();
@@ -168,7 +126,8 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
                   fill
                   sizes="(min-width: 1024px) 1024px, 100vw"
                   className="object-scale-down object-center"
-                  priority={index < 2}
+                  priority={index === 0}
+                  loading={index === 0 ? 'eager' : 'lazy'}
                   onError={() => handleImageError(image)}
                   unoptimized={true}
                 />

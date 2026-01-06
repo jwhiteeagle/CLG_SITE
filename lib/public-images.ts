@@ -6,7 +6,7 @@ import { join } from 'node:path';
 const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
 
 function getNumericPrefix(filename: string): number {
-  const match = /^(\d+)[_-]/.exec(filename);
+  const match = /^(\d+)/.exec(filename);
   if (!match) return 0;
   const value = Number.parseInt(match[1], 10);
   return Number.isFinite(value) ? value : 0;

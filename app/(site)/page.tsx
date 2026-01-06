@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { FeaturedCarousel } from '@/components/app/featured-carousel';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { listCategoriesWithCoverPool } from '@/lib/gallery';
+import { listCategories } from '@/lib/gallery';
 import { withBasePath } from '@/lib/base-path';
 import { SectionHeader } from '@/components/app/section-header';
 import { CtaCard } from '@/components/app/cta-card';
@@ -35,7 +35,7 @@ export default function Home() {
     'kingdom-death-monster',
   ]);
   // Reduced from 18 to 8 to prevent rate limiting
-  const categories = listCategoriesWithCoverPool({ poolSize: 8 }).filter(
+  const categories = listCategories().filter(
     (category) => featuredCategorySlugs.has(category.slug)
   );
 
@@ -132,10 +132,6 @@ export default function Home() {
                     ? `/images/gallery/${category.slug}/${category.coverImage}`
                     : null
                 }
-                candidateImageSrcs={category.coverPool.map(
-                  (filename) => `/images/gallery/${category.slug}/${filename}`
-                )}
-                cardIndex={index}
               />
             ))}
           </div>

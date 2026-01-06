@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 import { withBasePath } from '@/lib/base-path';
-import { useReduceMotionPreference } from '@/components/app/motion-preference';
 
 type GalleryCategoryCardCyclerProps = {
   href: string;
@@ -14,14 +13,10 @@ type GalleryCategoryCardCyclerProps = {
   meta?: React.ReactNode;
   imageAlt?: string;
   initialImageSrc?: string | null;
-  candidateImageSrcs?: string[];
   titleAs?: 'h2' | 'h3';
   sizes?: string;
   className?: string;
   placeholder?: React.ReactNode;
-  cycleMs?: number;
-  staggerMs?: number;
-  cardIndex?: number;
 };
 
 export function GalleryCategoryCardCycler({
@@ -30,182 +25,20 @@ export function GalleryCategoryCardCycler({
   meta,
   imageAlt,
   initialImageSrc,
-  candidateImageSrcs = [],
   titleAs: TitleTag = 'h2',
   sizes = '(min-width: 1024px) 50vw, 100vw',
   className,
   placeholder,
-  cycleMs = 4500,
-  staggerMs = 200,
-  cardIndex = 0,
 }: GalleryCategoryCardCyclerProps) {
-  const { reduceMotion } = useReduceMotionPreference();
   const alt = imageAlt ?? title;
-  const containerRef = React.useRef<HTMLAnchorElement>(null);
-  const [isVisible, setIsVisible] = React.useState(false);
-  
-  // Track failed images to prevent cycling back to them
-  const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
-  const [currentImageError, setCurrentImageError] = React.useState(false);
-  
-  // Filter out invalid and failed images
-  const pool = React.useMemo(() => {
-    return candidateImageSrcs.filter((src) => {
-      if (!src || typeof src !== 'string' || src.trim() === '') return false;
-      if (src === initialImageSrc) return false;
-      if (failedImages.has(src)) return false;
-      return true;
-    });
-  }, [candidateImageSrcs, initialImageSrc, failedImages]);
-
-  const [currentSrc, setCurrentSrc] = React.useState<string | null>(
-    initialImageSrc ?? null
-  );
-  const [incomingSrc, setIncomingSrc] = React.useState<string | null>(null);
-  const [incomingVisible, setIncomingVisible] = React.useState(false);
-  const swapTimeoutRef = React.useRef<number | null>(null);
-  const intervalRef = React.useRef<number | null>(null);
-  const startTimeoutRef = React.useRef<number | null>(null);
-  const currentSrcRef = React.useRef<string | null>(currentSrc);
-  const poolRef = React.useRef<string[]>(pool);
-
-  React.useEffect(() => {
-    currentSrcRef.current = currentSrc;
-  }, [currentSrc]);
-
-  React.useEffect(() => {
-    poolRef.current = pool;
-  }, [pool]);
-
-  // Reset image error when current image changes
-  React.useEffect(() => {
-    setCurrentImageError(false);
-  }, [currentSrc]);
-
-  // Intersection Observer - only start cycling when visible
-  React.useEffect(() => {
-    const element = containerRef.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting);
-        });
-      },
-      {
-        rootMargin: '50px', // Start a bit before it comes into view
-        threshold: 0.1,
-      }
-    );
-
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (!currentSrcRef.current || poolRef.current.length === 0) return;
-    if (reduceMotion) return;
-    if (!isVisible) return; // Only cycle when visible
-
-    function pickNext(): string | null {
-      const currentPool = poolRef.current;
-      if (currentPool.length === 0) return null;
-      
-      const current = currentSrcRef.current;
-      if (currentPool.length === 1) return currentPool[0]!;
-      
-      let next = currentPool[Math.floor(Math.random() * currentPool.length)]!;
-      for (
-        let attempts = 0;
-        attempts < 4 && next === current;
-        attempts += 1
-      ) {
-        next = currentPool[Math.floor(Math.random() * currentPool.length)]!;
-      }
-      return next;
-    }
-
-    let cancelled = false;
-
-    function tick() {
-      const next = pickNext();
-      if (!next || next === currentSrcRef.current) return;
-
-      const preload = new window.Image();
-      preload.src = withBasePath(next);
-
-      const commit = () => {
-        if (cancelled) return;
-        setIncomingSrc(next);
-        setIncomingVisible(false);
-        window.requestAnimationFrame(() => {
-          setIncomingVisible(true);
-        });
-        if (swapTimeoutRef.current !== null) {
-          window.clearTimeout(swapTimeoutRef.current);
-        }
-        swapTimeoutRef.current = window.setTimeout(() => {
-          setCurrentSrc(next);
-          setIncomingSrc(null);
-          setIncomingVisible(false);
-        }, 200);
-      };
-
-      const handleError = () => {
-        if (cancelled) return;
-        // Track the failed image and don't cycle to it
-        setFailedImages((prev) => new Set(prev).add(next));
-      };
-
-      if (typeof preload.decode === 'function') {
-        preload.decode()
-          .then(commit)
-          .catch(handleError);
-      } else {
-        preload.onload = commit;
-        preload.onerror = handleError;
-      }
-    }
-
-    const startDelay = Math.max(0, cardIndex) * Math.max(0, staggerMs);
-    const firstTickDelay = cycleMs;
-    startTimeoutRef.current = window.setTimeout(() => {
-      tick();
-      intervalRef.current = window.setInterval(tick, cycleMs);
-    }, firstTickDelay + startDelay);
-
-    return () => {
-      cancelled = true;
-      if (startTimeoutRef.current !== null) {
-        window.clearTimeout(startTimeoutRef.current);
-      }
-      if (intervalRef.current !== null) {
-        window.clearInterval(intervalRef.current);
-      }
-      if (swapTimeoutRef.current !== null) {
-        window.clearTimeout(swapTimeoutRef.current);
-      }
-    };
-  }, [cycleMs, pool.length, staggerMs, cardIndex, initialImageSrc, reduceMotion, isVisible]);
-
-  const handleImageError = React.useCallback((src: string) => {
-    setFailedImages((prev) => new Set(prev).add(src));
-    if (src === currentSrc) {
-      setCurrentImageError(true);
-    }
-  }, [currentSrc]);
-
-  const showPlaceholder = !currentSrc || currentImageError;
+  const src = initialImageSrc ? withBasePath(initialImageSrc) : null;
+  const [imageError, setImageError] = React.useState(false);
+  const showPlaceholder = !src || imageError;
 
   return (
     <Link
-      ref={containerRef}
       href={href}
+      prefetch={false}
       className={cn('gallery-card gallery-category-card', className)}
     >
       <div className="gallery-card-media gallery-card-media--category">
@@ -214,40 +47,16 @@ export function GalleryCategoryCardCycler({
             {placeholder ?? 'No images yet'}
           </div>
         ) : (
-          <>
-            <Image
-              key={String(currentSrc)}
-              src={withBasePath(String(currentSrc))}
-              alt={alt}
-              fill
-              sizes={sizes}
-              className={cn(
-                'gallery-card-image transition-all duration-200',
-                incomingSrc && incomingVisible
-                  ? 'opacity-0 -translate-x-2'
-                  : 'opacity-100 translate-x-0'
-              )}
-              loading="lazy"
-              onError={() => handleImageError(String(currentSrc))}
-            />
-            {incomingSrc && !failedImages.has(incomingSrc) ? (
-              <Image
-                key={incomingSrc}
-                src={withBasePath(incomingSrc)}
-                alt={alt}
-                fill
-                sizes={sizes}
-                className={cn(
-                  'gallery-card-image transition-all duration-200',
-                  incomingVisible
-                    ? 'opacity-100 translate-x-0'
-                    : 'opacity-0 translate-x-2'
-                )}
-                loading="lazy"
-                onError={() => handleImageError(incomingSrc)}
-              />
-            ) : null}
-          </>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            className="gallery-card-image"
+            loading="lazy"
+            unoptimized={true}
+            onError={() => setImageError(true)}
+          />
         )}
 
         <div className="gallery-card-overlay" />
