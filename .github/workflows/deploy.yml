@@ -32,7 +32,7 @@ jobs:
         run: npm ci
       
       - name: Build site
-        run: node build-pages.js
+        run: node scripts/build-pages.js
         env:
           PAGES_BASE_PATH: ''
       
