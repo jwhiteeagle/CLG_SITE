@@ -57,9 +57,9 @@ clg_site/
 
 ---
 
-## Misc Last Minute Build v1
+## Misc Last Minute Build v1 - nuke 'fancier' stuff
 
-- Paypal had a fun tracking pixel artifact for their dono button impressions.
-
-- Image Heavy components are kinda scary. Preloaded 3, .htaccess should handle caching headers. 
-- Added some error boundaries and failed image tracking with fallbacks to be extra paranoid. This should avoid 404 spam (maybe? idk)
+- My old shared hosting site has some nasty rate limiting causing problems with some gallery cover randomizing UX I made. Removed the random cover page randomizer components to avoid this.
+- Image Heavy components are kinda scary - .htaccess should handle caching headers. 
+- Added some image error handling and failed image tracking with fallbacks to be extra paranoid. This should avoid 404 spam (maybe? idk)
+- github pages is the likely endgame destination for hosting, will reintroduce fancier UX at that point if motivated.

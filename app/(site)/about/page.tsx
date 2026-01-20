@@ -127,6 +127,8 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-10">
+            <BmacQrBlock />
+
             <section>
               {topRightGallery.length > 0 ? (
                 <GalleryLightboxGrid
@@ -142,8 +144,6 @@ export default function AboutPage() {
             </section>
 
             {aboutTextRight}
-
-            <BmacQrBlock />
           </div>
         </div>
       </div>

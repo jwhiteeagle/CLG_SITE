@@ -88,7 +88,7 @@ export default function LinksPage() {
 
             <LinksHubCard
               title="3D Printing"
-              description="I have designed a few miniature painting related 3D prints:"
+              description="I have designed a few other miniature painting related 3D prints, storage solutions, or other misc items. MakerWorld hosts all of my design .stls which you can find for free!"
             >
               <div className="text-muted-foreground space-y-1 text-sm">
                 <p>
@@ -107,7 +107,7 @@ export default function LinksPage() {
 
             <LinksHubCard
               title="Social Media"
-              description="Not really active any more, but you can find me here:"
+              description="I don't post much anymore, but you can find me here!"
             >
               <SocialIconLinks
                 instagramHref="https://www.instagram.com/chieflivegaming/"

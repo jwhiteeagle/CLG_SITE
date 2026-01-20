@@ -25,7 +25,7 @@ export default function GalleryPage() {
                 finished pieces, and more candid snaps. 
               </p>
               <p className="type-section-title mt-4">
-                Browse some of my work below in <em>organized-ish</em> categories.
+                Browse some of my work by choosing a category below!
               </p>
             </>
           }

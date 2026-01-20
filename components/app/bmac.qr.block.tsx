@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
-import { BuyMeACoffeeButton } from '@/components/app/buy-me-a-coffee-button';
+import { PaypalButton } from '@/components/app/paypal-button';
 import { SectionHeader } from '@/components/app/section-header';
-import { withBasePath } from '@/lib/base-path';
 import { cn } from '@/lib/utils';
+import { BuyMeACoffeeButton } from '@/components/app/buy-me-a-coffee-button';
 
 type BmacQrBlockProps = {
   title?: string;
@@ -13,7 +11,7 @@ type BmacQrBlockProps = {
 
 export function BmacQrBlock({
   title = 'Support My Work',
-  description = 'Scan the QR code or use any of the buttons below to make a one time donation to support my efforts. Donations are greatly appreciated and are super helpful for any artist!',
+  description = 'Use any of the buttons below to make a one time donation to support me directly. Donations are greatly appreciated and are super helpful for any artist!',
   className,
 }: BmacQrBlockProps) {
   return (
@@ -27,18 +25,10 @@ export function BmacQrBlock({
             className="w-full"
           />
 
-          <div className="bg-background/60 ring-border relative aspect-square w-full max-w-[260px] overflow-hidden rounded-xl ring-1">
-            <Image
-              src={withBasePath('/images/brand/BMAC-QR-Code.webp')}
-              alt="Buy Me a Coffee QR code"
-              fill
-              sizes="260px"
-              className="object-contain p-3"
-              priority={false}
-            />
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <PaypalButton />
+            <BuyMeACoffeeButton />
           </div>
-
-          <BuyMeACoffeeButton />          
         </div>
       </div>
     </section>

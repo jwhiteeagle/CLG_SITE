@@ -10,7 +10,10 @@ type CopyableTemplateBoxProps = {
   copiedMessage?: string;
 };
 
-async function copyText(text: string, fallbackSelectEl?: HTMLTextAreaElement | null) {
+async function copyText(
+  text: string,
+  fallbackSelectEl?: HTMLTextAreaElement | null
+) {
   try {
     await navigator.clipboard.writeText(text);
     return true;
@@ -55,7 +58,7 @@ export function CopyableTemplateBox({
       />
       <div
         className={cn(
-          'text-muted-foreground pointer-events-none absolute right-3 top-3 rounded-full bg-black/5 px-2 py-1 text-xs font-medium opacity-0 transition-opacity',
+          'text-muted-foreground pointer-events-none absolute top-3 right-3 rounded-full bg-black/5 px-2 py-1 text-xs font-medium opacity-0 transition-opacity',
           copied && 'opacity-100'
         )}
         aria-live="polite"
