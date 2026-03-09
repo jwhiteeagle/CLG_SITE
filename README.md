@@ -2,32 +2,34 @@
 
 Static website for [chieflivegaming.com](https://www.chieflivegaming.com).
 
-Commission miniature painting business landing page, portfolio, organized image galleries, links and info for other projects Jake is working on.
+Commission miniature painting business landing page, portfolio, organized image galleries, links and info for other mini painting related projects Jake is working on.
 
 ---
 
 ## Tech Stack
 
-| Layer           | Technology                 |
-| --------------- | -------------------------- |
-| Framework       | Next.js 16 (App Router)    |
-| Language        | TypeScript                 |
-| Styling         | Tailwind CSS v4            |
-| Components      | shadcn/radix               |
-| Package Manager | npm                        |
+| Layer           | Technology              |
+| --------------- | ----------------------- |
+| Framework       | Next.js 16 (App Router) |
+| Language        | TypeScript              |
+| Styling         | Tailwind CSS v4         |
+| Components      | shadcn/radix            |
+| Package Manager | npm                     |
 
 ---
 
 ## Design Practices
 
-### Frontend Goal: Develop reusable sections to keep route pages lightweight
-- Overkill modular pattern for frontend component design to test strategies for larger future projects. 
-  - primtives imported with radix/shadcn, modified with globals.css
-  - css tokens assembled with primitives avoid repeating markup
-  - shared patterns allow global tweaks to UI and prevent weird drift
+- vibe in vscode with codex CLI & claude code for various steps.
 
-- Pair programmed with codex CLI, claude code, gemini CLI for various steps.
-- Managed long term context, universal agent guardrails, TODOs, logs, etc with a local MCP server.
+- I used this project as a messy PoC for a frontend layering strategy I plan to use for other internal projects.
+
+### Frontend Goal: Develop reusable sections to keep route pages lightweight
+
+- utilize shadcn primitives or components from official shadcn registries
+- pair with a css style sheet (tailwind v4) and reuse the official shadcn css token names throughout project
+- build larger more specific pattern components for bulk of design, upcycle shadcn stuff, use utilty classes heavily
+- import building blocks at route level for composition
 
 ---
 
@@ -54,12 +56,3 @@ clg_site/
 - **Category discovery:** folders under `/public/images/gallery/<category>/` drive available category routes.
 - **Index cards (`/gallery`):** static cover image per category (newest image by numeric-prefix sorting).
 - **Category pages (`/gallery/[category]`):** click an image to open an in-page lightbox (prev/next + close; supports keyboard + mobile swipe).
-
----
-
-## Misc Last Minute Build v1 - nuke 'fancier' stuff
-
-- My old shared hosting site has some nasty rate limiting causing problems with some gallery cover randomizing UX I made. Removed the random cover page randomizer components to avoid this.
-- Image Heavy components are kinda scary - .htaccess should handle caching headers. 
-- Added some image error handling and failed image tracking with fallbacks to be extra paranoid. This should avoid 404 spam (maybe? idk)
-- github pages is the likely endgame destination for hosting, will reintroduce fancier UX at that point if motivated.

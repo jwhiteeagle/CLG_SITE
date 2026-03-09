@@ -37,13 +37,7 @@ npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# IDE
 .idea/
-
-# miscellaneous
-PROJECT_CONTEXT.md
 .vscode/
 
-#brand kit stuff
-/brand_kit_clg
-*.code-workspace
+
