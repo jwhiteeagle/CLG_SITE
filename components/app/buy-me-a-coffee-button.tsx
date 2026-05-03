@@ -18,7 +18,7 @@ export function BuyMeACoffeeButton({
       target="_blank"
       rel="noreferrer"
       className={cn(
-        'inline-flex h-11 min-w-[180px] items-center justify-center gap-2 rounded-lg bg-[#FFDD00] px-4 text-sm font-semibold text-black shadow-sm ring-1 ring-black/20 transition-colors hover:bg-[#ffdd00]/90 focus-visible:ring-2 focus-visible:ring-ring',
+        'inline-flex h-11 min-w-[180px] items-center justify-center gap-2 rounded-none bg-[#FFDD00] px-4 text-sm font-semibold text-black shadow-sm ring-1 ring-black/20 transition-colors hover:bg-[#ffdd00]/90 focus-visible:ring-2 focus-visible:ring-ring',
         className
       )}
       aria-label={text}

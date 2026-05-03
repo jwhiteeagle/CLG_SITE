@@ -15,17 +15,14 @@ export default function GalleryPage() {
             <>
               <p>
                 I have been painting miniatures for over a decade now (woah). My strategy is to 
-                generally book 2-4 simultaneous commissions to avoid creative
-                burnout. This allows me to switch between projects, bouncing around to keep things fresh.
+                always book multiple projects at once- this allows me to bounce back and forth to avoid creative
+                burnout.
               </p>
+              <br />
               <p>
-                I love painting a wide variety of subjects, from large armies to single characters,
-                vehicles, monsters, and terrain. Each category presents its own unique challenges
-                and opportunities for creativity. You will find a mix of work in progress shots, 
-                finished pieces, and more candid snaps. 
-              </p>
-              <p className="type-section-title mt-4">
-                Browse some of my work by choosing a category below!
+                I love painting a wide variety of subjects. Large armies, single characters,
+                vehicles, monsters, terrain- I just love painting! Each category presents its own unique challenges
+                and opportunities for creativity.
               </p>
             </>
           }

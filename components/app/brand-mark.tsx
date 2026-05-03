@@ -19,7 +19,7 @@ export function BrandMark({ className }: BrandMarkProps) {
       <Link
         href="/"
         prefetch={false}
-        className="surface-clickable flex h-[72px] w-[72px] items-center justify-center rounded-lg hover:-translate-y-0.5"
+        className="surface-clickable flex h-[72px] w-[72px] items-center justify-center rounded-none hover:-translate-y-0.5"
       >
         {!logoError ? (
           <Image
@@ -31,7 +31,7 @@ export function BrandMark({ className }: BrandMarkProps) {
             onError={() => setLogoError(true)}
           />
         ) : (
-          <div className="flex h-[70px] w-[70px] items-center justify-center rounded-lg bg-primary/10 text-primary font-orbitron font-bold text-2xl">
+          <div className="flex h-[70px] w-[70px] items-center justify-center rounded-none bg-primary/10 text-primary font-orbitron font-bold text-2xl">
             CLG
           </div>
         )}

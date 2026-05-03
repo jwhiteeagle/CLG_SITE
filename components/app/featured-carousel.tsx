@@ -111,10 +111,10 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
         <CarouselContent>
           {validImages.map((image, index) => (
             <CarouselItem key={`${image}-${index}`}>
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-white/10 bg-black/10 dark:border-white/5 dark:bg-black/30">
+              <div className="relative aspect-video w-full overflow-hidden rounded-none border border-white/10 bg-black/10 dark:border-white/5 dark:bg-black/30">
                 {/* Gradient overlay for iOS-style depth */}
                 <div
-                  className="pointer-events-none absolute inset-0 z-10 rounded-lg opacity-[0.08]"
+                  className="pointer-events-none absolute inset-0 z-10 rounded-none opacity-[0.08]"
                   style={{
                     background:
                       'linear-gradient(135deg, var(--primary) 0%, transparent 50%)',
@@ -136,12 +136,12 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
           ))}
         </CarouselContent>
         <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex justify-center">
-          <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/10 bg-background/70 px-1.5 py-1 shadow-sm backdrop-blur sm:gap-2 sm:px-2">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-none border border-white/10 bg-background/70 px-1.5 py-1 shadow-sm backdrop-blur sm:gap-2 sm:px-2">
             <Button
               type="button"
               variant="outline"
               size="icon-sm"
-              className="rounded-full sm:size-9"
+              className="rounded-none sm:size-9"
               onClick={handlePrev}
               disabled={!canScrollPrev}
               aria-label="Previous slide"
@@ -152,7 +152,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
               type="button"
               variant="outline"
               size="icon-sm"
-              className="rounded-full sm:size-9"
+              className="rounded-none sm:size-9"
               onClick={handleTogglePlayPause}
               aria-pressed={!isPlaying}
               aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
@@ -163,7 +163,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
               type="button"
               variant="outline"
               size="icon-sm"
-              className="rounded-full sm:size-9"
+              className="rounded-none sm:size-9"
               onClick={handleNext}
               disabled={!canScrollNext}
               aria-label="Next slide"

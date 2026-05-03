@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { Instagram, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Youtube } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -28,7 +28,7 @@ function SocialIconLink({ href, label, icon, className }: SocialIconLinkProps) {
         <span className="sr-only">{label}</span>
         <span
           aria-hidden="true"
-          className="bg-popover text-popover-foreground ring-border pointer-events-none absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-1 text-xs font-medium opacity-0 shadow-sm ring-1 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+          className="bg-popover text-popover-foreground ring-border pointer-events-none absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 whitespace-nowrap rounded-none px-2 py-1 text-xs font-medium opacity-0 shadow-sm ring-1 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
         >
           {label}
         </span>
@@ -39,17 +39,26 @@ function SocialIconLink({ href, label, icon, className }: SocialIconLinkProps) {
 
 export type SocialIconLinksProps = {
   className?: string;
+  facebookHref?: string;
   instagramHref?: string;
   youtubeHref?: string;
 };
 
 export function SocialIconLinks({
   className,
+  facebookHref,
   instagramHref = 'https://www.instagram.com/',
   youtubeHref = 'https://www.youtube.com/',
 }: SocialIconLinksProps) {
   return (
     <div className={cn('flex items-center justify-center gap-2', className)}>
+      {facebookHref ? (
+        <SocialIconLink
+          href={facebookHref}
+          label="Facebook"
+          icon={<Facebook className="size-6" aria-hidden="true" />}
+        />
+      ) : null}
       <SocialIconLink
         href={instagramHref}
         label="Instagram"

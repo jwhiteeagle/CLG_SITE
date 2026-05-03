@@ -1,8 +1,7 @@
 import { PageTitleCard } from '@/components/app/page-title-card';
 import { SocialIconLinks } from '@/components/app/social-icon-links';
+import { Button } from '@/components/ui/button';
 import type { ReactNode } from 'react';
-
-import Link from 'next/link';
 
 type LinksHubCardProps = {
   title: string;
@@ -12,9 +11,9 @@ type LinksHubCardProps = {
 
 function LinksHubCard({ title, description, children }: LinksHubCardProps) {
   return (
-    <section className="bg-background/60 ring-border rounded-xl p-5 ring-1">
+    <section className="bg-background/60 ring-border rounded-none p-5 ring-1">
       <div className="space-y-3 text-center">
-        <div className="bg-background/70 ring-border rounded-lg p-4 shadow-xs ring-1">
+        <div className="bg-background/70 ring-border rounded-none p-4 shadow-xs ring-1">
           <h3 className="text-foreground text-lg font-semibold">{title}</h3>
           <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
             {description}
@@ -30,86 +29,48 @@ export default function LinksPage() {
   return (
     <div className="site-section">
       <div className="mb-8">
-        <PageTitleCard
-          title="Links and Other Projects"
-          description="I have a lot of interests and projects in the works! This serves as a landing page for some of the main things I am working on."
-        />
+        <PageTitleCard title="Links" />
       </div>
 
       <section className="mx-auto max-w-240">
         <div className="site-card bg-warm-accent/7 p-5 sm:p-6">
-          <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
-            <LinksHubCard
-              title="eBay Store"
-              description="I sculpt custom miniature bases and sell them on eBay:"
-            >
-              <div className="space-y-2 text-sm">
-                <p className="text-muted-foreground">
-                  eBay Store:{' '}
-                  <a
-                    href="https://www.ebay.com/str/chieflivegaming"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-primary font-medium underline-offset-4 hover:underline"
-                  >
-                    ebay.com/str/chieflivegaming
-                  </a>
-                </p>
-                <p className="text-muted-foreground">
-                  Resin Bases Store Category:{' '}
-                  <a
-                    href="https://www.ebay.com/str/chieflivegaming/Resin-Bases/_i.html?store_cat=14198273012"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-primary font-medium underline-offset-4 hover:underline"
-                  >
-                    ebay.com/str/chieflivegaming/Resin-Bases
-                  </a>
-                </p>
-                <p className="text-muted-foreground">
-                  I also sell some random miniatures I paint for practice, extra
-                  bits, and even some TCG cards!
-                </p>
-              </div>
-            </LinksHubCard>
-
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:mx-auto md:[&>*:last-child:nth-child(odd)]:w-full md:[&>*:last-child:nth-child(odd)]:max-w-[calc((100%-1.25rem)/2)]">
             <LinksHubCard
               title="Paintfinity"
-              description="My custom 3D printed miniature painting station project. Designed to work with Gridfinity."
+              description="I designed a 3D printed miniature painting station. I leveraged my knowledge and experience from commission painting to create the best system I could! "
             >
-              <Link
-                href="/paintfinity"
-                prefetch={false}
-                className="text-primary inline-flex text-sm font-medium transition-colors hover:opacity-90"
-              >
-                View the Paintfinity page
-              </Link>
+              <Button asChild variant="main">
+                <a
+                  href="https://paintfinity.chieflivegaming.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Learn more about Paintfinity
+                </a>
+              </Button>
             </LinksHubCard>
 
             <LinksHubCard
               title="3D Printing"
-              description="I have designed a few other miniature painting related 3D prints, storage solutions, or other misc items. MakerWorld hosts all of my design .stls which you can find for free!"
+              description="I have designed a few miniature painting related 3D printable items. MakerWorld hosts all of my designs which are completely free to download!"
             >
-              <div className="text-muted-foreground space-y-1 text-sm">
-                <p>
-                  MakerWorld:{' '}
-                  <a
-                    href="https://makerworld.com/en/@ChiefLiveGaming"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-primary font-medium underline-offset-4 hover:underline"
-                  >
-                    makerworld.com/en/@ChiefLiveGaming
-                  </a>
-                </p>
-              </div>
+              <Button asChild variant="main">
+                <a
+                  href="https://makerworld.com/en/@ChiefLiveGaming"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  My MakerWorld Profile
+                </a>
+              </Button>
             </LinksHubCard>
 
             <LinksHubCard
               title="Social Media"
-              description="I don't post much anymore, but you can find me here!"
+              description="Not much of a social media-er, but you can find me here!"
             >
               <SocialIconLinks
+                facebookHref="https://www.facebook.com/chieflivegaming"
                 instagramHref="https://www.instagram.com/chieflivegaming/"
                 youtubeHref="https://www.youtube.com/@ChiefLiveGamingWI"
               />

@@ -188,7 +188,7 @@
 }
 
 @utility site-section {
-  @apply mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8;
+  @apply mx-auto w-full max-w-[90rem] px-4 py-12 sm:px-6 lg:px-8;
 }
 
 @utility site-hero {
@@ -249,7 +249,7 @@
 
 @utility site-card {
   position: relative;
-  @apply rounded-lg p-6 transition-all duration-200;
+  @apply rounded-none p-6 transition-all duration-200;
   background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
@@ -282,7 +282,7 @@
 
 @utility gallery-card {
   position: relative;
-  @apply block overflow-hidden rounded-lg transition-all duration-200;
+  @apply block overflow-hidden rounded-none transition-all duration-200;
   background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
@@ -362,13 +362,13 @@
 }
 
 @utility gallery-card-meta {
-  @apply inline-flex items-center justify-center rounded-full bg-black/25 px-3 py-1 text-sm font-medium text-white/90;
+  @apply inline-flex items-center justify-center rounded-none bg-black/25 px-3 py-1 text-sm font-medium text-white/90;
   backdrop-filter: blur(6px);
 }
 
 @utility gallery-category-header {
   position: relative;
-  @apply overflow-hidden rounded-lg p-6 transition-all duration-200;
+  @apply overflow-hidden rounded-none p-6 transition-all duration-200;
   background: linear-gradient(135deg, var(--card) 0%, var(--card) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:

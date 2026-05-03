@@ -46,7 +46,6 @@ clg_site/
       about/page.tsx              # /about
       commissions/page.tsx        # /commissions
       links/page.tsx              # /links
-      paintfinity/page.tsx        # /paintfinity
 ```
 
 ---

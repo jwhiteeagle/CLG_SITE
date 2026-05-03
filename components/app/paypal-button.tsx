@@ -20,7 +20,7 @@ export function PaypalButton({
       target="_blank"
       rel="noreferrer"
       className={cn(
-        'inline-flex h-11 min-w-[180px] items-center justify-center gap-2 rounded-lg border border-[#003087]/20 bg-white px-4 text-sm font-semibold text-[#003087] shadow-sm transition-colors hover:bg-[#f5f8ff] focus-visible:ring-2 focus-visible:ring-ring',
+        'inline-flex h-11 min-w-45 items-center justify-center gap-2 rounded-none border border-[#003087]/20 bg-white px-4 text-sm font-semibold text-[#003087] shadow-sm transition-colors hover:bg-[#f5f8ff] focus-visible:ring-2 focus-visible:ring-ring',
         className
       )}
       aria-label={ariaLabel}

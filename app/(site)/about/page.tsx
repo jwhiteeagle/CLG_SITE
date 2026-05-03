@@ -20,34 +20,41 @@ export default function AboutPage() {
     <TextCard withContainer={false} constrainWidth={false} align="left">
       <p>
         I&apos;ve been painting miniatures full time &ldquo;professionally&rdquo; now for over a
-        decade, running Chief Live Gaming as an in home commission studio. I am 35 years old.
-        I live in Wisconsin, USA with my amazing wife and our pet rabbit, Baxter! I started 
-        painting miniatures and playing Warhammer Fantasy sometime back in high school, but set the
-        hobby aside for a number of years during college.
+        decade, running Chief Live Gaming as an in home commission studio. I am 36 years old.
+        I live in Wisconsin, USA with my amazing wife and our pet rabbit, Baxter!
       </p>
       <p>
-        In 2013, I got in a pretty nasty motorcycle accident that led to me dropping out of college
+        In 2013, I was in a motorcycle accident that led to me dropping out of college
         and re-evaluating what I wanted to do with my life. While recovering from my injuries, 
-        I decided to pick up some brushes again. I painted some models for a few friends, and
-        all of the sudden, people I didn&apos;t know started asking me to paint for them!
+        I decided to pick up miniature painting again, which had been a hobby of mine when I was younger. 
+      </p>
+      <p>
+        I loved it. I had forgotted how therapeutic it was. Mini Painting really helped me stay focused and
+        positive during a pretty rough time in my life. My girlfriend (now wifey!) at the time was super supportive and encouraged 
+        me to take the plunge and start taking commissions. 
+        </p>
+      <p>
+        I have had the opportunity
+        to work with many talented artists and collectors over the years and have painted more models
+        than I can count! Thank you all for being a part of this journey with me! If you&apos;re reading this and are thinking
+        about starting to take commissions yourself- feel free to reach out. I would be happy to share advice or answer any questions you might have about getting started!
       </p>
     </TextCard>
   );
 
-  const otherInterestsCard = (
+  const aboutTextRight = (
     <TextCard withContainer={false} constrainWidth={false} align="left">
       <div className="space-y-3">
         <h3 className="text-foreground text-xl font-semibold tracking-tight">
           Other Interests
         </h3>
         <p>
-          I love learning. I am always obsessively studying new things. I am a self taught artist
-          and have learned most of what I know about miniature painting through books, videos,
-          and practice. I am fascinated by a wide variety of subjects, and I love to dive deep
-          into new hobbies and interests.
+          I love learning and am usually obsessively studying some random new-to-me thing. I&apos;m a fully self taught artist
+          and have learned most of what I know about miniature painting through books, videos (yay youtube),
+          and practice. 
         </p>
         <p>
-          A few other things I&apos;m into outside of miniature painting:
+          I also like:
         </p>
         <ul className="list-disc space-y-3 pl-5">
           <li>
@@ -57,46 +64,18 @@ export default function AboutPage() {
             <span className="text-foreground font-medium">Painting, Sketching, pretty much any art medium</span>
           </li>
           <li>
+            <span className="text-foreground font-medium">3D modeling and design - Paintfinity!</span>
+          </li>
+          <li>
             <span className="text-foreground font-medium">Coding / Development</span>
-            <ul className="mt-1 list-[circle] space-y-1 pl-5">
-              <li>I built this site!</li>
-            </ul>
           </li>
           <li>
-            <span className="text-foreground font-medium">Games</span>
-            <ul className="mt-1 list-[circle] space-y-1 pl-5">
-              <li>Video Games!</li>
-              <li>Board Games!</li>
-              <li>Dungeons and Dragons</li>
-            </ul>
+            <span className="text-foreground font-medium">Video Games</span>
           </li>
-          <li>
-            <span className="text-foreground font-medium">While Painting</span>
-            <ul className="mt-1 list-[circle] space-y-1 pl-5">
-              <li>Audiobooks/Podcasts are my go to!</li>
-            </ul>
-          </li>
+          <li><span className="text-foreground font-medium">Board Games</span></li>
+          <li><span className="text-foreground font-medium">DnD</span></li>
         </ul>
       </div>
-    </TextCard>
-  );
-
-  const aboutTextRight = (
-    <TextCard withContainer={false} constrainWidth={false} align="left">
-      <p>
-        At the time, I was streaming video games on Twitch as a hobby and making gaming content
-        on YouTube. I&apos;m Native American, and I have always used &ldquo;Chief&rdquo; as my online handle.
-        The name Chief Live Gaming has its roots in those days of streaming- it&apos;s
-        the name I used for my channel. I decided to use that name for my painting commissions as well,
-        since I figured it would be a short term thing. Well, here we are over a decade later!
-      </p>
-      <p>
-        I feel so fortunate to be able to do what I love every day, and to have the support of
-        such an amazing community of hobbyists and miniature painters. I have had the opportunity
-        to work with many talented artists and collectors over the years. I have painted more models
-        than I can count, and had the privilege of working on models that I would have never been able
-        to otherwise. Thank you all for being a part of this journey with me!
-      </p>
     </TextCard>
   );
 
@@ -122,8 +101,6 @@ export default function AboutPage() {
                 />
               </section>
             ) : null}
-
-            {otherInterestsCard}
           </div>
 
           <div className="space-y-10">

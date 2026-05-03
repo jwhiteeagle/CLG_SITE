@@ -6,7 +6,7 @@ import { PaypalButton } from '@/components/app/paypal-button';
 export function SiteFooter() {
   return (
     <footer className="border-border bg-background border-t">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-360 flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-center gap-3">
           <PaypalButton />
           <BuyMeACoffeeButton />
@@ -37,13 +37,14 @@ export function SiteFooter() {
           >
             Links
           </Link>
-          <Link
-            href="/paintfinity"
-            prefetch={false}
+          <a
+            href="https://paintfinity.chieflivegaming.com/"
+            target="_blank"
+            rel="noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             Paintfinity
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

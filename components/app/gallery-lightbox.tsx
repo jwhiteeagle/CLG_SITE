@@ -91,7 +91,7 @@ function GalleryLightbox({
       <div className="relative mx-auto flex h-full max-w-6xl items-center justify-center px-4 py-6">
         <div className="relative w-full">
           <div
-            className="relative h-[80vh] w-full overflow-hidden rounded-lg border border-white/10 bg-black/20 touch-pan-y"
+            className="relative h-[80vh] w-full overflow-hidden rounded-none border border-white/10 bg-black/20 touch-pan-y"
             onTouchStart={(event) => {
               const target = event.target as HTMLElement | null;
               if (target?.closest('button')) return;
@@ -158,7 +158,7 @@ function GalleryLightbox({
             type="button"
             variant="outline"
             size="icon"
-            className="absolute top-3 right-3 rounded-full bg-background/80 backdrop-blur"
+            className="absolute top-3 right-3 rounded-none bg-background/80 backdrop-blur"
             onClick={onClose}
           >
             <X />
@@ -169,7 +169,7 @@ function GalleryLightbox({
             type="button"
             variant="outline"
             size="icon"
-            className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur"
+            className="absolute top-1/2 left-3 -translate-y-1/2 rounded-none bg-background/80 backdrop-blur"
             onClick={onPrev}
           >
             <ChevronLeft />
@@ -180,7 +180,7 @@ function GalleryLightbox({
             type="button"
             variant="outline"
             size="icon"
-            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur"
+            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-none bg-background/80 backdrop-blur"
             onClick={onNext}
           >
             <ChevronRight />
