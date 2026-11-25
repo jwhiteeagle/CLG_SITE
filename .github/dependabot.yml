@@ -11,6 +11,13 @@ updates:
     open-pull-requests-limit: 10
     cooldown:
       default-days: 7
+    # Majors held back on purpose: TS 7 lacks the JS API typescript-eslint needs;
+    # @types/node should match the Node version CI runs (24). Revisit together.
+    ignore:
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     groups:
       minor-and-patch:
         update-types:
