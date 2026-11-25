@@ -18,13 +18,11 @@ type FeaturedCarouselProps = {
 };
 
 export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
-  const plugin = React.useRef(
+  // useState initializer: created once, safe to read during render (unlike ref.current)
+  const [plugin] = React.useState(() =>
     Autoplay({ delay: 4000, stopOnInteraction: false })
   );
   const [api, setApi] = React.useState<CarouselApi | null>(null);
-  const [isPlaying, setIsPlaying] = React.useState(true);
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-  const [canScrollNext, setCanScrollNext] = React.useState(false);
   const [failedImages, setFailedImages] = React.useState<Set<string>>(new Set());
 
   // Filter out any invalid images, and stop trying failed ones.
@@ -38,55 +36,47 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
     });
   }, [failedImages, images]);
 
-  React.useEffect(() => {
-    if (!api) return;
-
-    const emblaApi = api;
-
-    function handleSelect() {
-      setCanScrollPrev(emblaApi.canScrollPrev());
-      setCanScrollNext(emblaApi.canScrollNext());
-    }
-
-    function handleAutoplayPlay() {
-      setIsPlaying(true);
-    }
-
-    function handleAutoplayStop() {
-      setIsPlaying(false);
-    }
-
-    handleSelect();
-    setIsPlaying(plugin.current.isPlaying());
-
-    emblaApi.on('select', handleSelect);
-    emblaApi.on('reInit', handleSelect);
-    emblaApi.on('autoplay:play', handleAutoplayPlay);
-    emblaApi.on('autoplay:stop', handleAutoplayStop);
-
-    return () => {
-      emblaApi.off('select', handleSelect);
-      emblaApi.off('reInit', handleSelect);
-      emblaApi.off('autoplay:play', handleAutoplayPlay);
-      emblaApi.off('autoplay:stop', handleAutoplayStop);
-    };
-  }, [api, validImages]);
+  // Subscribe to Embla events instead of syncing state in an effect
+  const subscribe = React.useCallback(
+    (onChange: () => void) => {
+      if (!api) return () => {};
+      const events = ['select', 'reInit', 'autoplay:play', 'autoplay:stop'] as const;
+      events.forEach((event) => api.on(event, onChange));
+      return () => events.forEach((event) => api.off(event, onChange));
+    },
+    [api]
+  );
+  const isPlaying = React.useSyncExternalStore(
+    subscribe,
+    () => (api ? plugin.isPlaying() : true),
+    () => true
+  );
+  const canScrollPrev = React.useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollPrev() ?? false,
+    () => false
+  );
+  const canScrollNext = React.useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollNext() ?? false,
+    () => false
+  );
 
   function handlePrev() {
     api?.scrollPrev();
-    plugin.current.reset();
+    plugin.reset();
   }
 
   function handleNext() {
     api?.scrollNext();
-    plugin.current.reset();
+    plugin.reset();
   }
 
   function handleTogglePlayPause() {
-    if (plugin.current.isPlaying()) {
-      plugin.current.stop();
+    if (plugin.isPlaying()) {
+      plugin.stop();
     } else {
-      plugin.current.play();
+      plugin.play();
     }
   }
 
@@ -103,7 +93,7 @@ export function FeaturedCarousel({ images }: FeaturedCarouselProps) {
   return (
     <div className="relative w-full">
       <Carousel
-        plugins={[plugin.current]}
+        plugins={[plugin]}
         setApi={setApi}
         className="w-full"
         aria-label="Featured work"

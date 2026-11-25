@@ -34,10 +34,12 @@ function GalleryLightbox({
     null
   );
   const lastSwipeAtRef = React.useRef<number>(0);
-  const [imageError, setImageError] = React.useState(false);
+  // Track which src failed, so the error resets automatically when the image changes
+  const [failedSrc, setFailedSrc] = React.useState<string | null>(null);
 
   const current = images[index];
   const currentSrc = current?.src ? withBasePath(current.src) : null;
+  const imageError = currentSrc !== null && failedSrc === currentSrc;
 
   React.useEffect(() => {
     lastActiveElementRef.current =
@@ -50,11 +52,6 @@ function GalleryLightbox({
       lastActiveElementRef.current?.focus?.();
     };
   }, []);
-
-  React.useEffect(() => {
-    // Reset error state when image changes
-    setImageError(false);
-  }, [index]);
 
   React.useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -141,7 +138,7 @@ function GalleryLightbox({
                 className="object-contain"
                 priority
                 unoptimized={true}
-                onError={() => setImageError(true)}
+                onError={() => setFailedSrc(currentSrc)}
               />
             ) : imageError ? (
               <div className="flex h-full items-center justify-center text-white/60">
@@ -257,14 +254,6 @@ export function GalleryLightboxGrid({
     Math.min(validImages.length, safeInitialCount)
   );
 
-  React.useEffect(() => {
-    setVisibleCount((prev) => {
-      const next = Math.min(prev, validImages.length);
-      if (next <= 0) return Math.min(validImages.length, safeInitialCount);
-      return next;
-    });
-  }, [safeInitialCount, validImages.length]);
-
   if (validImages.length === 0) {
     return (
       <div className="text-center text-muted-foreground py-12">
@@ -273,7 +262,11 @@ export function GalleryLightboxGrid({
     );
   }
 
-  const visibleImages = validImages.slice(0, Math.min(validImages.length, visibleCount));
+  // Derived during render instead of clamped in an effect
+  const clampedCount = Math.min(visibleCount, validImages.length);
+  const effectiveCount =
+    clampedCount > 0 ? clampedCount : Math.min(validImages.length, safeInitialCount);
+  const visibleImages = validImages.slice(0, effectiveCount);
   const canLoadMore = visibleImages.length < validImages.length;
 
   return (

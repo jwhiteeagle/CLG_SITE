@@ -5,13 +5,16 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 
+const subscribeNoop = () => () => {};
+
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  // false during SSR/hydration, true on the client: avoids a theme mismatch flash
+  const mounted = React.useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false
+  );
 
   if (!mounted) {
     return (
