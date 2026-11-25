@@ -1,45 +1,44 @@
 name: Dependabot Auto Merge
 
+# Auto-approves and queues auto-merge for Dependabot patch/minor updates.
+# Majors are left open for manual review.
+# Requires: repo setting "Allow auto-merge" + branch protection on main
+# with "PR CI / verify" as a required status check, so merges wait for CI.
+
 on:
-  pull_request_target:
-    types: [opened, reopened, synchronize]
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  auto-merge:
-    if: github.actor == 'dependabot[bot]'
+  dependabot:
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
-
     steps:
-      - name: Fetch Dependabot metadata
+      - name: Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@v2
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Approve eligible Dependabot PR
-        if: |
-          (steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor') &&
-          steps.metadata.outputs.dependency-type == 'direct:development' &&
-          !contains(steps.metadata.outputs.dependency-names, 'next') &&
-          !contains(steps.metadata.outputs.dependency-names, 'react') &&
-          !contains(steps.metadata.outputs.dependency-names, 'react-dom')
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor' }}
         run: gh pr review --approve "$PR_URL"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge for eligible Dependabot PR
-        if: |
-          (steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor') &&
-          steps.metadata.outputs.dependency-type == 'direct:development' &&
-          !contains(steps.metadata.outputs.dependency-names, 'next') &&
-          !contains(steps.metadata.outputs.dependency-names, 'react') &&
-          !contains(steps.metadata.outputs.dependency-names, 'react-dom')
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor' }}
         run: gh pr merge --auto --squash "$PR_URL"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
